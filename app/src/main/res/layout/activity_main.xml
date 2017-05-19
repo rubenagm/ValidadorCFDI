@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    tools:context="com.rubencfdi.validadorcfdi.Activitys.MainActivity">
+    <!-- Contiene toda la vista-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!-- Contiene la parte del encabezado-->
+            <RelativeLayout
+                android:background="@color/colorAccent"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+                <RelativeLayout
+                    android:background="@color/colorPrimaryDark"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp">
+                </RelativeLayout>
+                <!-- Contiene el resumen de todos los timbres-->
+                <RelativeLayout
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp">
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginBottom="40dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/colorWhite"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"></RelativeLayout>
+            </RelativeLayout>
+            <!-- Contiene la lista de los timbres validados-->
+            <LinearLayout
+                android:background="@color/colorWhite"
+                android:id="@+id/linearLayoutListadoTimbres"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
