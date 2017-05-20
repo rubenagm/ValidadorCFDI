@@ -16,11 +16,11 @@
             android:layout_height="match_parent">
             <!-- Contiene la parte del encabezado-->
             <RelativeLayout
-                android:background="@color/colorAccent"
+                android:background="@color/colorWhite"
                 android:layout_width="match_parent"
                 android:layout_height="200dp">
                 <RelativeLayout
-                    android:background="@color/colorPrimaryDark"
+                    android:background="@color/colorAzulMedio"
                     android:layout_width="match_parent"
                     android:layout_height="130dp">
                 </RelativeLayout>
@@ -32,12 +32,22 @@
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_marginBottom="40dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginRight="15dp"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
-                    android:background="@color/colorWhite"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"></RelativeLayout>
+                    android:layout_width="75dp"
+                    android:layout_height="75dp">
+                    <ImageView
+                        android:src="@mipmap/icono_camara"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp" />
+                </RelativeLayout>
+                <TextView
+                    android:alpha=".7"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/colorAzulOscuro"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
             </RelativeLayout>
             <!-- Contiene la lista de los timbres validados-->
             <LinearLayout

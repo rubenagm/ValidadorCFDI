@@ -4,11 +4,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="135dp">
+    android:layout_height="140dp">
     <LinearLayout
+        android:background="@color/colorWhite"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="134dp">
+        android:layout_height="139dp">
         <RelativeLayout
             android:layout_weight="17"
             android:layout_width="0dp"
@@ -16,33 +17,50 @@
             <LinearLayout
                 android:gravity="center"
                 android:orientation="vertical"
-                android:layout_margin="8dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-                    <TextView
-                        android:text="Valido"
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:src="@mipmap/icono_valido"
+                            android:layout_width="26dp"
+                            android:layout_height="26dp" />
+                        <TextView
+                            android:layout_marginLeft="7dp"
+                            android:textSize="14sp"
+                            android:gravity="center"
+                            android:alpha=".8"
+                            android:textColor="@color/colorBlack"
+                            android:layout_gravity="center"
+                            android:text="Válido"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
                 </RelativeLayout>
-                <LinearLayout
-                    android:layout_marginTop="5dp"
+                <RelativeLayout
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <LinearLayout
+                        android:layout_alignParentLeft="true"
                         android:orientation="vertical"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <TextView
                             android:fontFamily="sans-serif-light"
                             android:textSize="13sp"
-                            android:alpha=".7"
-                            android:textColor="@color/colorBlack"
+                            android:textColor="@color/colorCafe"
                             android:text="Emisor:"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -54,16 +72,14 @@
                             android:layout_height="wrap_content" />
                     </LinearLayout>
                     <LinearLayout
-                        android:layout_marginLeft="40dp"
+                        android:layout_alignParentRight="true"
                         android:orientation="vertical"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <TextView
                             android:fontFamily="sans-serif-light"
                             android:textSize="13sp"
-                            android:alpha=".7"
-                            android:textColor="@color/colorBlack"
+                            android:textColor="@color/colorCafe"
                             android:text="Receptor:"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -74,7 +90,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
-                </LinearLayout>
+                </RelativeLayout>
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
@@ -83,8 +99,7 @@
                         android:fontFamily="sans-serif-light"
                         android:textSize="13sp"
                         android:layout_marginTop="3dp"
-                        android:alpha=".7"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/colorCafe"
                         android:gravity="center"
                         android:layout_gravity="center"
                         android:text="Monto"
@@ -102,7 +117,7 @@
         </RelativeLayout>
     </LinearLayout>
     <TextView
-        android:alpha=".25"
+        android:alpha=".15"
         android:background="@color/colorBlack"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"

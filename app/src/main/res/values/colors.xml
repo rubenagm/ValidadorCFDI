@@ -5,4 +5,17 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000</color>
+
+    <color name="colorAzulVerde">#45B793</color>
+    <color name="colorAzulMedio">#00B2C0</color>
+    <color name="colorAzulOscuro">#0185B6</color>
+    <color name="colorVerde">#A3AF0F</color>
+    <color name="colorAmarillo">#FEE117</color>
+    <color name="colorRojo">#A90504</color>
+    <color name="colorCafe">#42110D</color>
+    <color name="colorMamey">#C03D43</color>
+
+    <!--Colores válido e inválido-->
+    <color name="colorValido">#67BB25</color>
+    <color name="colorInvalido">#C4000C</color>
 </resources>
