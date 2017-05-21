@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class BaseDatos extends SQLiteOpenHelper {
 
     public BaseDatos(Context context) {
-        super(context, "VALIDADORCFDI", null, 0);
+        super(context, "VALIDADORCFDI", null, 1);
     }
 
     @Override
@@ -70,6 +70,8 @@ public class BaseDatos extends SQLiteOpenHelper {
                     cursor.getString(cursor.getColumnIndex("Mensaje")),
                     cursor.getString(cursor.getColumnIndex("FechaVerificacion"))
             ));
+
+            cursor.moveToNext();
         }
 
         return timbres;

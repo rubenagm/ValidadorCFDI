@@ -9,10 +9,7 @@
     <!-- Contiene toda la vista-->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_height="match_parent">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -96,6 +93,7 @@
                                 android:layout_width="45dp"
                                 android:layout_height="45dp" />
                             <TextView
+                                android:id="@+id/main_text_total_consultados"
                                 android:alpha=".9"
                                 android:fontFamily="sans-serif-light"
                                 android:textColor="@color/colorBlack"
@@ -117,6 +115,7 @@
                                 android:layout_width="25dp"
                                 android:layout_height="25dp" />
                             <TextView
+                                android:id="@+id/main_text_validos"
                                 android:alpha=".9"
                                 android:fontFamily="sans-serif-light"
                                 android:textColor="@color/colorBlack"
@@ -138,6 +137,7 @@
                                 android:layout_width="25dp"
                                 android:layout_height="25dp" />
                             <TextView
+                                android:id="@+id/main_text_invalidos"
                                 android:alpha=".9"
                                 android:fontFamily="sans-serif-light"
                                 android:textColor="@color/colorBlack"
@@ -161,6 +161,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp">
                     <ImageView
+                        android:id="@+id/main_boton_qr"
                         android:src="@mipmap/icono_camara"
                         android:layout_width="80dp"
                         android:layout_height="80dp" />
