@@ -73,6 +73,7 @@ public class BaseDatos extends SQLiteOpenHelper {
 
             cursor.moveToNext();
         }
+        cursor.close();
 
         return timbres;
     }

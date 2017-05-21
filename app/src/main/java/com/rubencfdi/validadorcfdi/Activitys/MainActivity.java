@@ -1,23 +1,15 @@
 package com.rubencfdi.validadorcfdi.Activitys;
 
-import android.support.annotation.IntegerRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.rubencfdi.validadorcfdi.BaseDatos.BaseDatos;
 import com.rubencfdi.validadorcfdi.Modelos.Timbre;
 import com.rubencfdi.validadorcfdi.R;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.jar.Manifest;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private void cargarTimbresGuardados() {
         BaseDatos baseDatos = new BaseDatos(this);
         timbres = baseDatos.consultarTimbres();
-        textViewConsultados.setText(timbres.size() + "");
+        textViewConsultados.setText(Integer.toString(timbres.size()));
 
         //Se limpian los datos de pantalla
         linearLayoutListadoTimbres.removeAllViews();
