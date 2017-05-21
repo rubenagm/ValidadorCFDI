@@ -18,7 +18,6 @@
                 android:id="@+id/item_timbre_text_linea_valido"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/colorValido"
                 android:layout_width="6dp"
                 android:layout_height="match_parent" />
             <LinearLayout
@@ -40,7 +39,6 @@
                         <ImageView
                             android:id="@+id/item_timbre_icono_valido"
                             android:layout_gravity="center"
-                            android:src="@mipmap/icono_valido"
                             android:layout_width="26dp"
                             android:layout_height="26dp" />
                         <TextView
@@ -51,7 +49,6 @@
                             android:alpha=".8"
                             android:textColor="@color/colorBlack"
                             android:layout_gravity="center"
-                            android:text="Válido"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -77,7 +74,6 @@
                             android:id="@+id/item_timbre_text_rfc_emisor"
                             android:textSize="18sp"
                             android:textColor="@color/colorBlack"
-                            android:text="RFC938238YHCU"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -97,7 +93,6 @@
                             android:id="@+id/item_timbre_text_rfc_receptor"
                             android:textSize="18sp"
                             android:textColor="@color/colorBlack"
-                            android:text="RFC938238YHCU"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -121,7 +116,6 @@
                         android:textSize="23sp"
                         android:textColor="@color/colorBlack"
                         android:gravity="center"
-                        android:text="$1'000,000.00"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </LinearLayout>

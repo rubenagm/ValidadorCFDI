@@ -1,5 +1,11 @@
 package com.rubencfdi.validadorcfdi.Modelos;
 
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.rubencfdi.validadorcfdi.R;
+
 /**
  * Created by Ruben on 27/04/2017
  */
@@ -92,5 +98,27 @@ public class Timbre {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public static LinearLayout generarTimbre(LinearLayout linearLayout, Timbre timbre)
+    {
+        ((TextView) linearLayout.findViewById(R.id.item_timbre_text_rfc_emisor)).setText(timbre.getRfcEmisor());
+        ((TextView) linearLayout.findViewById(R.id.item_timbre_text_rfc_receptor)).setText(timbre.getRfcReceptor());
+        ((TextView) linearLayout.findViewById(R.id.item_timbre_text_monto)).setText(timbre.getMonto());
+
+        if (timbre.getEstatus() == 1) {
+            ((TextView) linearLayout.findViewById(R.id.item_timbre_text_valido)).setText("Válido");
+            ((ImageView) linearLayout.findViewById(R.id.item_timbre_icono_valido)).setImageResource(R.mipmap.icono_valido);
+            ((TextView) linearLayout.findViewById(R.id.item_timbre_text_linea_valido)).setBackgroundResource(R.color.colorValido);
+        }
+        else {
+            ((TextView) linearLayout.findViewById(R.id.item_timbre_text_valido)).setText("Inválido");
+            ((ImageView) linearLayout.findViewById(R.id.item_timbre_icono_valido)).setImageResource(R.mipmap.icono_invalido);
+            ((TextView) linearLayout.findViewById(R.id.item_timbre_text_linea_valido)).setBackgroundResource(R.color.colorInvalido);
+        }
+
+
+
+        return linearLayout;
     }
 }

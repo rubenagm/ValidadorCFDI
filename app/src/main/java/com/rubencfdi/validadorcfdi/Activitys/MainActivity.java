@@ -1,5 +1,6 @@
 package com.rubencfdi.validadorcfdi.Activitys;
 
+import android.support.annotation.IntegerRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -41,11 +42,21 @@ public class MainActivity extends AppCompatActivity {
         BaseDatos baseDatos = new BaseDatos(this);
         timbres = baseDatos.consultarTimbres();
         textViewConsultados.setText(timbres.size() + "");
+
+        //Se limpian los datos de pantalla
         linearLayoutListadoTimbres.removeAllViews();
+        textViewValidos.setText("0");
+        textViewInvalidos.setText("0");
 
         for (Timbre timbre : timbres) {
+
+            if (timbre.getEstatus() == 1)
+                textViewValidos.setText((Integer.parseInt(textViewValidos.getText().toString()) + 1) + "");
+            else
+                textViewInvalidos.setText((Integer.parseInt(textViewInvalidos.getText().toString()) + 1) + "");
+
             LinearLayout linearLayoutItem = (LinearLayout) getLayoutInflater().inflate(R.layout.item_timbre_validado, null);
-            linearLayoutListadoTimbres.addView(linearLayoutItem);
+            linearLayoutListadoTimbres.addView(Timbre.generarTimbre(linearLayoutItem, timbre));
         }
     }
 
