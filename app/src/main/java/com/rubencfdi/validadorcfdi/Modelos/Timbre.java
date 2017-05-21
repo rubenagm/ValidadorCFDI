@@ -6,19 +6,21 @@ package com.rubencfdi.validadorcfdi.Modelos;
 
 public class Timbre {
 
+    private int id;
     private String uuid;
     private String rfcReceptor;
     private String rfcEmisor;
     private String monto;
-    private boolean estatus;
+    private int estatus;
     private String mensaje;
     private String fechaVerificacion;
 
     public Timbre()
     {}
 
-    public Timbre(String uuid, String rfcReceptor, String rfcEmisor, String monto, boolean estatus, String mensaje, String fechaVerificacion)
+    public Timbre(int id, String uuid, String rfcReceptor, String rfcEmisor, String monto, int estatus, String mensaje, String fechaVerificacion)
     {
+        this.id = id;
         this.uuid = uuid;
         this.rfcReceptor = rfcReceptor;
         this.rfcEmisor = rfcEmisor;
@@ -60,11 +62,11 @@ public class Timbre {
         this.monto = monto;
     }
 
-    public boolean isEstatus() {
+    public int getEstatus() {
         return estatus;
     }
 
-    public void setEstatus(boolean estatus) {
+    public void setEstatus(int estatus) {
         this.estatus = estatus;
     }
 
@@ -82,5 +84,13 @@ public class Timbre {
 
     public void setFechaVerificacion(String fechaVerificacion) {
         this.fechaVerificacion = fechaVerificacion;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

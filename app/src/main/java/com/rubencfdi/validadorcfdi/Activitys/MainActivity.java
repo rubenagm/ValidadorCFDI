@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.rubencfdi.validadorcfdi.BaseDatos.BaseDatos;
 import com.rubencfdi.validadorcfdi.Modelos.Timbre;
 import com.rubencfdi.validadorcfdi.R;
 
@@ -24,13 +25,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void cargarTimbresGuardados() {
-        ArrayList<Timbre> timbres = new ArrayList<>();
-        timbres.add(new Timbre());
-        timbres.add(new Timbre());
-        timbres.add(new Timbre());
-        timbres.add(new Timbre());
-        timbres.add(new Timbre());
-        timbres.add(new Timbre());
+        BaseDatos baseDatos = new BaseDatos(this);
+        ArrayList<Timbre> timbres = baseDatos.consultarTimbres();
 
         for (Timbre timbre : timbres) {
             LinearLayout linearLayoutItem = (LinearLayout) getLayoutInflater().inflate(R.layout.item_timbre_validado, null);
