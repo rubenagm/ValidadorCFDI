@@ -53,7 +53,6 @@ public class BaseDatos extends SQLiteOpenHelper {
     public ArrayList<Timbre> consultarTimbres()
     {
         ArrayList<Timbre> timbres = new ArrayList<>();
-
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(Querys.SELECT_TIMBRE, null);
         cursor.moveToFirst();
@@ -76,5 +75,25 @@ public class BaseDatos extends SQLiteOpenHelper {
         cursor.close();
 
         return timbres;
+    }
+
+    public Timbre consultarTimbre(int id)
+    {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(Querys.SELECT_TIMBRE + " WHERE Id = " + id, null);
+        cursor.moveToFirst();
+        Timbre timbre = new Timbre(
+                cursor.getInt(cursor.getColumnIndex("Id")),
+                cursor.getString(cursor.getColumnIndex("UUID")),
+                cursor.getString(cursor.getColumnIndex("rfcEmisor")),
+                cursor.getString(cursor.getColumnIndex("rfcReceptor")),
+                cursor.getString(cursor.getColumnIndex("Monto")),
+                cursor.getInt(cursor.getColumnIndex("Estatus")),
+                cursor.getString(cursor.getColumnIndex("Mensaje")),
+                cursor.getString(cursor.getColumnIndex("FechaVerificacion"))
+        );
+        cursor.close();
+
+        return timbre;
     }
 }
