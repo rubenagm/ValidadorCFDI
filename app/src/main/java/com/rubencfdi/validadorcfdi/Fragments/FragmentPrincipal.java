@@ -88,11 +88,13 @@ public class FragmentPrincipal extends Fragment {
 
     public FragmentPrincipal setActivity(Activity activity) {
         this.activity = activity;
+
         return this;
     }
 
     public FragmentPrincipal setViewPager(ViewPager viewPager) {
         this.viewPager = viewPager;
+
         return this;
     }
 }

@@ -34,17 +34,21 @@ public class SliderAdapterMain extends FragmentStatePagerAdapter{
                         .setViewPager(viewPager);
             }
             case 0 : {
-                return new FragmentCamara();
+                return new FragmentCamara()
+                        .setActivity(activity)
+                        .setViewPager(viewPager);
             }
             case 2 : {
-                return new FragmentAjustes();
+                return new FragmentAjustes()
+                        .setViewPager(viewPager);
             }
+
             default: return null;
         }
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 }
