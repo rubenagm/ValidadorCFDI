@@ -21,13 +21,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:background="@color/colorAzulMedio">
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
-
                         <LinearLayout
                             android:id="@+id/fragment_principal_linear_camara"
                             android:layout_width="match_parent"
@@ -36,21 +34,20 @@
                             android:layout_marginRight="10dp"
                             android:layout_marginTop="10dp"
                             android:orientation="horizontal">
-
                             <ImageView
-                                android:layout_width="35dp"
-                                android:layout_height="35dp"
+                                android:id="@+id/fragment_principal_boton_camara"
+                                android:padding="10dp"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
                                 android:src="@mipmap/icono_camara" />
-
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
                                 android:alpha=".9"
-                                android:text="Presiona para verificar un código QR"
+                                android:text="Presiona para leer un código QR"
                                 android:textColor="@color/colorWhite"
-                                android:textSize="12sp" />
+                                android:textSize="11sp" />
                         </LinearLayout>
                         <!--<LinearLayout
                             android:layout_marginTop="5dp"
@@ -108,7 +105,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
-
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
@@ -116,12 +112,10 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:orientation="horizontal">
-
                             <ImageView
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
                                 android:src="@drawable/qr_negro" />
-
                             <TextView
                                 android:id="@+id/fragment_principal_text_total_consultados"
                                 android:layout_width="wrap_content"
@@ -132,7 +126,6 @@
                                 android:textColor="@color/colorBlack"
                                 android:textSize="25sp" />
                         </LinearLayout>
-
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
@@ -140,12 +133,10 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:orientation="horizontal">
-
                             <ImageView
                                 android:layout_width="25dp"
                                 android:layout_height="25dp"
                                 android:src="@mipmap/icono_valido" />
-
                             <TextView
                                 android:id="@+id/fragment_principal_text_validos"
                                 android:layout_width="wrap_content"

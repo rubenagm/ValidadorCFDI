@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void inicializarObjetos() {
         viewPager = (ViewPager) findViewById(R.id.activity_main_slider);
-        SliderAdapterMain sliderAdapterMain = new SliderAdapterMain(getSupportFragmentManager(), this);
+        SliderAdapterMain sliderAdapterMain = new SliderAdapterMain(getSupportFragmentManager(), this, viewPager);
         viewPager.setAdapter(sliderAdapterMain);
         viewPager.setCurrentItem(1);
     }
