@@ -29,7 +29,7 @@ import java.io.IOException;
  * Created by Rubén on 01/06/2017
  */
 
-public class FragmentCamara extends Fragment {
+public class FragmentCamara extends Fragment implements SurfaceHolder.Callback {
 
     private View view;
     private SurfaceView surfaceView;
@@ -49,69 +49,7 @@ public class FragmentCamara extends Fragment {
     }
 
     private void inicializarEventos() {
-        surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
-            @Override
-            public void surfaceCreated(SurfaceHolder holder) {
 
-            }
-
-            @Override
-            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
-            }
-
-            @Override
-            public void surfaceDestroyed(SurfaceHolder holder) {
-                cameraSource.stop();
-            }
-        });
-    }
-
-    private void inicializarObjetos() {
-        surfaceView = (SurfaceView) view.findViewById(R.id.fragment_camara_surface_camara);
-        barcodeDetector = new BarcodeDetector.Builder(activity)
-                .setBarcodeFormats(Barcode.QR_CODE)
-                .build();
-
-        // Si contiene la función de lector código QR barcodeDetector.isOperational()
-        cameraSource = new CameraSource.Builder(activity, barcodeDetector)
-                .setAutoFocusEnabled(true)
-                .setRequestedPreviewSize(1280, 720)
-                .build();
-
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-                switch (position) {
-                    case 0: {
-                        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                            //Mensaje de error
-                            return;
-                        }
-                        try {
-                            cameraSource.start(surfaceView.getHolder());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            //Mensaje de error
-                        }
-                    }
-                    default: {
-                        cameraSource.stop();
-                    }
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
 
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
@@ -129,6 +67,55 @@ public class FragmentCamara extends Fragment {
             }
         });
 
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                switch (position) {
+                    case 0: {
+                        /*if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                            //Mensaje de error
+                            return;
+                        }
+                        try {
+                            cameraSource.start(surfaceView.getHolder());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            //Mensaje de error
+                        }*/
+                    }
+                    default: {
+                        cameraSource.stop();
+                    }
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+    }
+
+    private void inicializarObjetos() {
+        surfaceView = (SurfaceView) view.findViewById(R.id.fragment_camara_surface_camara);
+        surfaceView.getHolder().addCallback(this);
+
+        barcodeDetector = new BarcodeDetector.Builder(activity)
+                .setBarcodeFormats(Barcode.QR_CODE)
+                .build();
+
+        // Si contiene la función de lector código QR barcodeDetector.isOperational()
+        cameraSource = new CameraSource.Builder(activity, barcodeDetector)
+                .setAutoFocusEnabled(true)
+                .setRequestedPreviewSize(320, 240)
+                .build();
     }
 
     public FragmentCamara setActivity(Activity activity) {
@@ -141,5 +128,28 @@ public class FragmentCamara extends Fragment {
         this.viewPager = viewPager;
 
         return this;
+    }
+
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
+        }
+        try {
+            cameraSource.start(holder);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+
     }
 }
