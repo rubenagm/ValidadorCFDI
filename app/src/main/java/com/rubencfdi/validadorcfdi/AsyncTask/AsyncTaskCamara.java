@@ -54,4 +54,10 @@ public class AsyncTaskCamara extends AsyncTask<Void, Void, CameraSource> {
         this.cameraSource = cameraSource;
         super.onPostExecute(cameraSource);
     }
+
+    public void pararCamara() {
+        if (cameraSource != null) {
+            cameraSource.stop();
+        }
+    }
 }

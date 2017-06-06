@@ -31,47 +31,25 @@ public class FragmentCamara extends Fragment implements SurfaceHolder.Callback {
     private Activity activity;
     private BarcodeDetector barcodeDetector;
     private ViewPager viewPager;
+    private AsyncTaskCamara asyncTaskCamara;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_camara, null);
-        inicializarObjetos();
-        inicializarEventos();
 
         return view;
     }
 
     @Override
     public void onResume() {
-        surfaceView = (SurfaceView) view.findViewById(R.id.fragment_camara_surface_camara);
-        surfaceView.getHolder().addCallback(this);
+        inicializarObjetos();
         super.onResume();
     }
 
-    private void inicializarEventos() {
-
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-    }
-
     private void inicializarObjetos() {
-
+        surfaceView = (SurfaceView) view.findViewById(R.id.fragment_camara_surface_camara);
+        surfaceView.getHolder().addCallback(this);
     }
 
     public FragmentCamara setActivity(Activity activity) {
@@ -109,7 +87,7 @@ public class FragmentCamara extends Fragment implements SurfaceHolder.Callback {
             }
         });
 
-        AsyncTaskCamara asyncTaskCamara = new AsyncTaskCamara(barcodeDetector, activity, holder, cameraSource);
+        asyncTaskCamara = new AsyncTaskCamara(barcodeDetector, activity, holder, cameraSource);
         asyncTaskCamara.execute();
     }
 
@@ -120,8 +98,9 @@ public class FragmentCamara extends Fragment implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        if (cameraSource != null) {
-            cameraSource.stop();
+        if (asyncTaskCamara != null) {
+            asyncTaskCamara.pararCamara();
+            asyncTaskCamara = null;
         }
     }
 }
