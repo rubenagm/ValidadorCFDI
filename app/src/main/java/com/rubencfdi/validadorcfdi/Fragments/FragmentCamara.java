@@ -11,6 +11,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -32,24 +33,35 @@ public class FragmentCamara extends Fragment implements SurfaceHolder.Callback {
     private BarcodeDetector barcodeDetector;
     private ViewPager viewPager;
     private AsyncTaskCamara asyncTaskCamara;
+    private ImageView imageViewFlechaDerecha;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_camara, null);
-
+        inicializarObjetos();
+        inicializarEventos();
         return view;
     }
 
     @Override
     public void onResume() {
-        inicializarObjetos();
         super.onResume();
+    }
+
+    private void inicializarEventos() {
+        imageViewFlechaDerecha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(1);
+            }
+        });
     }
 
     private void inicializarObjetos() {
         surfaceView = (SurfaceView) view.findViewById(R.id.fragment_camara_surface_camara);
         surfaceView.getHolder().addCallback(this);
+        imageViewFlechaDerecha = (ImageView) view.findViewById(R.id.fragment_camara_image_flecha_derecha);
     }
 
     public FragmentCamara setActivity(Activity activity) {
@@ -103,4 +115,6 @@ public class FragmentCamara extends Fragment implements SurfaceHolder.Callback {
             asyncTaskCamara = null;
         }
     }
+
+
 }

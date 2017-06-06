@@ -47,6 +47,11 @@ public class FragmentPrincipal extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     private void cargarTimbresGuardados() {
         BaseDatos baseDatos = new BaseDatos(activity);
         timbres = baseDatos.consultarTimbres();
@@ -57,15 +62,19 @@ public class FragmentPrincipal extends Fragment {
         textViewValidos.setText("0");
         textViewInvalidos.setText("0");
 
-        for (Timbre timbre : timbres) {
+        if (timbres.size() > 0) {
+            linearLayoutListadoTimbres.setVisibility(View.VISIBLE);
 
-            if (timbre.getEstatus() == 1)
-                textViewValidos.setText((Integer.parseInt(textViewValidos.getText().toString()) + 1) + "");
-            else
-                textViewInvalidos.setText((Integer.parseInt(textViewInvalidos.getText().toString()) + 1) + "");
+            for (Timbre timbre : timbres) {
 
-            LinearLayout linearLayoutItem = (LinearLayout) activity.getLayoutInflater().inflate(R.layout.item_timbre_validado, null);
-            linearLayoutListadoTimbres.addView(Timbre.generarTimbre(linearLayoutItem, timbre));
+                if (timbre.getEstatus() == 1)
+                    textViewValidos.setText((Integer.parseInt(textViewValidos.getText().toString()) + 1) + "");
+                else
+                    textViewInvalidos.setText((Integer.parseInt(textViewInvalidos.getText().toString()) + 1) + "");
+
+                LinearLayout linearLayoutItem = (LinearLayout) activity.getLayoutInflater().inflate(R.layout.item_timbre_validado, null);
+                linearLayoutListadoTimbres.addView(Timbre.generarTimbre(linearLayoutItem, timbre));
+            }
         }
     }
 
