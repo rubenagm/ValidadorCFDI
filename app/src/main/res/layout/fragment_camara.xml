@@ -3,7 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <SurfaceView
-        android:layout_margin="40dp"
         android:id="@+id/fragment_camara_surface_camara"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

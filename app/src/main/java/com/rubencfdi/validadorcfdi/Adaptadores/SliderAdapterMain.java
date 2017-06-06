@@ -28,13 +28,13 @@ public class SliderAdapterMain extends FragmentStatePagerAdapter{
     @Override
     public Fragment getItem(int position) {
         switch (position) {
-            case 1 : {
-                return new FragmentPrincipal()
+            case 0 : {
+                return new FragmentCamara()
                         .setActivity(activity)
                         .setViewPager(viewPager);
             }
-            case 0 : {
-                return new FragmentCamara()
+            case 1 : {
+                return new FragmentPrincipal()
                         .setActivity(activity)
                         .setViewPager(viewPager);
             }
@@ -49,6 +49,6 @@ public class SliderAdapterMain extends FragmentStatePagerAdapter{
 
     @Override
     public int getCount() {
-        return 1;
+        return 3;
     }
 }
