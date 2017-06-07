@@ -23,11 +23,10 @@ public class AsyncTaskCamara extends AsyncTask<Void, Void, CameraSource> {
     private SurfaceHolder surfaceHolder;
     private CameraSource cameraSource;
 
-    public AsyncTaskCamara(BarcodeDetector barcodeDetector, Activity activity, SurfaceHolder surfaceHolder, CameraSource cameraSource) {
+    public AsyncTaskCamara(BarcodeDetector barcodeDetector, Activity activity, SurfaceHolder surfaceHolder) {
         this.barcodeDetector = barcodeDetector;
         this.activity = activity;
         this.surfaceHolder = surfaceHolder;
-        this.cameraSource = cameraSource;
     }
 
     @Override

@@ -18,11 +18,13 @@ public class SliderAdapterMain extends FragmentStatePagerAdapter{
 
     private Activity activity;
     private ViewPager viewPager;
+    private FragmentManager fragmentManager;
 
-    public SliderAdapterMain(FragmentManager fm, Activity activity, ViewPager viewPager) {
+    public SliderAdapterMain(FragmentManager fm, Activity activity, ViewPager viewPager, FragmentManager fragmentManager) {
         super(fm);
         this.activity = activity;
         this.viewPager = viewPager;
+        this.fragmentManager = fragmentManager;
     }
 
     @Override
@@ -31,7 +33,8 @@ public class SliderAdapterMain extends FragmentStatePagerAdapter{
             case 0 : {
                 return new FragmentCamara()
                         .setActivity(activity)
-                        .setViewPager(viewPager);
+                        .setViewPager(viewPager)
+                        .setFragmentManager(fragmentManager);
             }
             case 1 : {
                 return new FragmentPrincipal()

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.rubencfdi.validadorcfdi.AsyncTask.AsyncTaskCamara;
+import com.rubencfdi.validadorcfdi.Dialogos.DialogoLeyendoFactura;
 import com.rubencfdi.validadorcfdi.R;
 
 /**
@@ -28,12 +30,12 @@ public class FragmentCamara extends Fragment implements SurfaceHolder.Callback {
 
     private View view;
     private SurfaceView surfaceView;
-    private CameraSource cameraSource;
     private Activity activity;
-    private BarcodeDetector barcodeDetector;
     private ViewPager viewPager;
     private AsyncTaskCamara asyncTaskCamara;
     private ImageView imageViewFlechaDerecha;
+    private FragmentManager fragmentManager;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -94,12 +96,15 @@ public class FragmentCamara extends Fragment implements SurfaceHolder.Callback {
                 final SparseArray<Barcode> barcodeSparseArray = detections.getDetectedItems();
 
                 if (barcodeSparseArray.size() > 0) {
-
+                    asyncTaskCamara.pararCamara();
+                    viewPager.setCurrentItem(1);
+                    DialogoLeyendoFactura dialogoLeyendoFactura = new DialogoLeyendoFactura();
+                    dialogoLeyendoFactura.show(fragmentManager, "dialogo_leyendo_factura");
                 }
             }
         });
 
-        asyncTaskCamara = new AsyncTaskCamara(barcodeDetector, activity, holder, cameraSource);
+        asyncTaskCamara = new AsyncTaskCamara(barcodeDetector, activity, holder);
         asyncTaskCamara.execute();
     }
 
@@ -117,4 +122,9 @@ public class FragmentCamara extends Fragment implements SurfaceHolder.Callback {
     }
 
 
+    public FragmentCamara setFragmentManager(FragmentManager fragmentManager) {
+        this.fragmentManager = fragmentManager;
+
+        return this;
+    }
 }
