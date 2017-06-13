@@ -1,11 +1,14 @@
 package com.rubencfdi.validadorcfdi.Activitys;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
 import com.rubencfdi.validadorcfdi.Adaptadores.SliderAdapterMain;
+import com.rubencfdi.validadorcfdi.Fragments.FragmentPrincipal;
 import com.rubencfdi.validadorcfdi.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.activity_main_slider);
         SliderAdapterMain sliderAdapterMain = new SliderAdapterMain(getSupportFragmentManager(), this, viewPager, getSupportFragmentManager());
         viewPager.setAdapter(sliderAdapterMain);
-        viewPager.setCurrentItem(1);
+        viewPager.setCurrentItem(0);
     }
 
     @Override
@@ -46,6 +49,13 @@ public class MainActivity extends AppCompatActivity {
             viewPager.setCurrentItem(1);
         else
             finish();
-        //super.onBackPressed();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == FragmentPrincipal.ACTIVITY_CAMARA && resultCode == Activity.RESULT_OK) {
+
+        }
     }
 }

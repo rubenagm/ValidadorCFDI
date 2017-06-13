@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.rubencfdi.validadorcfdi.Activitys.ActivityCamara">
+    <SurfaceView
+        android:layout_marginLeft=".1dp"
+        android:layout_marginRight=".1dp"
+        android:id="@+id/fragment_camara_surface_camara"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <LinearLayout
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:shadowDy="10"
+            android:shadowDx="10"
+            android:shadowColor="@color/colorBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:alpha=".9"
+            android:text="Volver"
+            android:textColor="@color/colorWhite"
+            android:textSize="12sp" />
+        <ImageView
+            android:id="@+id/fragment_camara_image_flecha_derecha"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:rotation="180"
+            android:src="@mipmap/icono_flecha_izquierda" />
+    </LinearLayout>
+</RelativeLayout>

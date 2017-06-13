@@ -2,6 +2,7 @@ package com.rubencfdi.validadorcfdi.Fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.rubencfdi.validadorcfdi.Activitys.ActivityCamara;
 import com.rubencfdi.validadorcfdi.BaseDatos.BaseDatos;
 import com.rubencfdi.validadorcfdi.Modelos.Timbre;
 import com.rubencfdi.validadorcfdi.R;
@@ -37,6 +39,8 @@ public class FragmentPrincipal extends Fragment {
     private ArrayList<Timbre> timbres;
     private ImageView imageViewCamara;
     private ViewPager viewPager;
+
+    public static final int ACTIVITY_CAMARA = 28747;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -82,9 +86,12 @@ public class FragmentPrincipal extends Fragment {
         imageViewCamara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewPager.setCurrentItem(0);
+                Intent intent = new Intent(activity, ActivityCamara.class);
+                activity.overridePendingTransition(0, 0);
+                activity.startActivityForResult(intent, ACTIVITY_CAMARA);
             }
         });
+
     }
 
     private void inicializarObjetos() {
