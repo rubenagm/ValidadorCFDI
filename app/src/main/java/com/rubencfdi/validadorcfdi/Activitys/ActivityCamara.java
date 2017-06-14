@@ -2,6 +2,8 @@ package com.rubencfdi.validadorcfdi.Activitys;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -11,20 +13,25 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.rubencfdi.validadorcfdi.AsyncTask.AsyncTaskCamara;
+import com.rubencfdi.validadorcfdi.AsyncTask.AsyncTaskMensajeError;
+import com.rubencfdi.validadorcfdi.AsyncTask.AsyncTaskResponse;
 import com.rubencfdi.validadorcfdi.Dialogos.DialogoLeyendoFactura;
+import com.rubencfdi.validadorcfdi.Librerias.OperacionesQR;
 import com.rubencfdi.validadorcfdi.R;
 
-public class ActivityCamara extends AppCompatActivity implements SurfaceHolder.Callback  {
+public class ActivityCamara extends AppCompatActivity implements SurfaceHolder.Callback {
 
     private SurfaceView surfaceView;
     private AsyncTaskCamara asyncTaskCamara;
     private ImageView imageViewFlechaDerecha;
-
+    private TextView textViewMensajeError;
+    private Looper looper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +55,8 @@ public class ActivityCamara extends AppCompatActivity implements SurfaceHolder.C
         surfaceView = (SurfaceView) findViewById(R.id.fragment_camara_surface_camara);
         surfaceView.getHolder().addCallback(this);
         imageViewFlechaDerecha = (ImageView) findViewById(R.id.fragment_camara_image_flecha_derecha);
+        textViewMensajeError = (TextView) findViewById(R.id.activity_camara_text_mensaje_error);
+        looper = Looper.myLooper();
     }
 
 
@@ -68,11 +77,23 @@ public class ActivityCamara extends AppCompatActivity implements SurfaceHolder.C
                 final SparseArray<Barcode> barcodeSparseArray = detections.getDetectedItems();
 
                 if (barcodeSparseArray.size() > 0) {
-                    //asyncTaskCamara.pararCamara();
-                    Intent intent = new Intent();
-                    intent.putExtra("qr", barcodeSparseArray.valueAt(0).displayValue);
-                    setResult(Activity.RESULT_OK, intent);
-                    finish();
+                    String codigoQr = barcodeSparseArray.valueAt(0).displayValue;
+
+                    if (OperacionesQR.validarFacturaQR(codigoQr)) {
+                        Intent intent = new Intent();
+                        intent.putExtra("qr", codigoQr);
+                        setResult(Activity.RESULT_OK, intent);
+                        finish();
+                    } else {
+                        textViewMensajeError.setText("No es un código QR");
+                        Handler handler = new Handler(looper);
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                textViewMensajeError.setText("");
+                            }
+                        }, 25000);
+                    }
                 }
             }
         });
