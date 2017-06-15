@@ -25,12 +25,12 @@ import com.rubencfdi.validadorcfdi.Dialogos.DialogoLeyendoFactura;
 import com.rubencfdi.validadorcfdi.Librerias.OperacionesQR;
 import com.rubencfdi.validadorcfdi.R;
 
-public class ActivityCamara extends AppCompatActivity implements SurfaceHolder.Callback {
+public class ActivityCamara extends AppCompatActivity implements SurfaceHolder.Callback, Detector.Processor<Barcode> {
 
     private SurfaceView surfaceView;
     private AsyncTaskCamara asyncTaskCamara;
     private ImageView imageViewFlechaDerecha;
-    private TextView textViewMensajeError;
+    public TextView textViewMensajeError;
     private Looper looper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,37 +66,7 @@ public class ActivityCamara extends AppCompatActivity implements SurfaceHolder.C
                 .setBarcodeFormats(Barcode.QR_CODE)
                 .build();
 
-        barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
-            @Override
-            public void release() {
-
-            }
-
-            @Override
-            public void receiveDetections(Detector.Detections<Barcode> detections) {
-                final SparseArray<Barcode> barcodeSparseArray = detections.getDetectedItems();
-
-                if (barcodeSparseArray.size() > 0) {
-                    String codigoQr = barcodeSparseArray.valueAt(0).displayValue;
-
-                    if (OperacionesQR.validarFacturaQR(codigoQr)) {
-                        Intent intent = new Intent();
-                        intent.putExtra("qr", codigoQr);
-                        setResult(Activity.RESULT_OK, intent);
-                        finish();
-                    } else {
-                        textViewMensajeError.setText("No es un código QR");
-                        Handler handler = new Handler(looper);
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                textViewMensajeError.setText("");
-                            }
-                        }, 25000);
-                    }
-                }
-            }
-        });
+        barcodeDetector.setProcessor(ActivityCamara.this);
 
         asyncTaskCamara = new AsyncTaskCamara(barcodeDetector, ActivityCamara.this, holder);
         asyncTaskCamara.execute();
@@ -112,6 +82,42 @@ public class ActivityCamara extends AppCompatActivity implements SurfaceHolder.C
         if (asyncTaskCamara != null) {
             asyncTaskCamara.pararCamara();
             asyncTaskCamara = null;
+        }
+    }
+
+    @Override
+    public void release() {
+
+    }
+
+    @Override
+    public void receiveDetections(Detector.Detections<Barcode> detections) {
+        final SparseArray<Barcode> barcodeSparseArray = detections.getDetectedItems();
+
+        if (barcodeSparseArray.size() > 0) {
+            String codigoQr = barcodeSparseArray.valueAt(0).displayValue;
+
+            if (OperacionesQR.validarFacturaQR(codigoQr)) {
+                Intent intent = new Intent();
+                intent.putExtra("qr", codigoQr);
+                setResult(Activity.RESULT_OK, intent);
+                finish();
+            } else {
+                textViewMensajeError.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        textViewMensajeError.setText("No es un código QR");
+                        textViewMensajeError.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                textViewMensajeError.setText("");
+                            }
+                        }, 3000);
+                    }
+                });
+
+                        /**/
+            }
         }
     }
 }

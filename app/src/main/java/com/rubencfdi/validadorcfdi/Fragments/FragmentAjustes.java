@@ -34,7 +34,7 @@ public class FragmentAjustes extends Fragment {
         imageViewVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewPager.setCurrentItem(1);
+                viewPager.setCurrentItem(0);
             }
         });
     }
