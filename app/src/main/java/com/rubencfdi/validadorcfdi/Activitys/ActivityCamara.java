@@ -13,6 +13,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.Detector;
@@ -31,7 +32,9 @@ public class ActivityCamara extends AppCompatActivity implements SurfaceHolder.C
     private AsyncTaskCamara asyncTaskCamara;
     private ImageView imageViewFlechaDerecha;
     public TextView textViewMensajeError;
-    private Looper looper;
+    private RelativeLayout relativeLayoutVertical;
+    private RelativeLayout relativeLayoutHorizontal;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +59,8 @@ public class ActivityCamara extends AppCompatActivity implements SurfaceHolder.C
         surfaceView.getHolder().addCallback(this);
         imageViewFlechaDerecha = (ImageView) findViewById(R.id.fragment_camara_image_flecha_derecha);
         textViewMensajeError = (TextView) findViewById(R.id.activity_camara_text_mensaje_error);
-        looper = Looper.myLooper();
+        relativeLayoutHorizontal = (RelativeLayout) findViewById(R.id.activity_camara_linear_linea_horizontal);
+        relativeLayoutVertical = (RelativeLayout) findViewById(R.id.activity_camara_linear_linea_vertical);
     }
 
 
@@ -115,8 +119,30 @@ public class ActivityCamara extends AppCompatActivity implements SurfaceHolder.C
                         }, 3000);
                     }
                 });
-
-                        /**/
+                relativeLayoutVertical.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        relativeLayoutVertical.setBackgroundResource(R.color.colorRojo);
+                        relativeLayoutVertical.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                relativeLayoutVertical.setBackgroundResource(R.color.colorWhite);
+                            }
+                        }, 3000);
+                    }
+                });
+                relativeLayoutHorizontal.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        relativeLayoutHorizontal.setBackgroundResource(R.color.colorRojo);
+                        relativeLayoutHorizontal.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                relativeLayoutHorizontal.setBackgroundResource(R.color.colorWhite);
+                            }
+                        }, 3000);
+                    }
+                });
             }
         }
     }
