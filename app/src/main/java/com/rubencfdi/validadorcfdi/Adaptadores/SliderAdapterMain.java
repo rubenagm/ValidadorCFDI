@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.rubencfdi.validadorcfdi.Fragments.FragmentAjustes;
-import com.rubencfdi.validadorcfdi.Fragments.FragmentCamara;
 import com.rubencfdi.validadorcfdi.Fragments.FragmentPrincipal;
 
 /**
@@ -18,24 +17,16 @@ public class SliderAdapterMain extends FragmentStatePagerAdapter{
 
     private Activity activity;
     private ViewPager viewPager;
-    //private FragmentManager fragmentManager;
 
     public SliderAdapterMain(FragmentManager fm, Activity activity, ViewPager viewPager, FragmentManager fragmentManager) {
         super(fm);
         this.activity = activity;
         this.viewPager = viewPager;
-        //this.fragmentManager = fragmentManager;
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
-            /*case 0 : {
-                return new FragmentCamara()
-                        .setActivity(activity)
-                        .setViewPager(viewPager)
-                        .setFragmentManager(fragmentManager);
-            }*/
             case 0 : {
                 return new FragmentPrincipal()
                         .setActivity(activity)

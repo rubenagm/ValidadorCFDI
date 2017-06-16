@@ -2,10 +2,6 @@ package com.rubencfdi.validadorcfdi.Activitys;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Looper;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.SparseArray;
@@ -20,9 +16,6 @@ import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.rubencfdi.validadorcfdi.AsyncTask.AsyncTaskCamara;
-import com.rubencfdi.validadorcfdi.AsyncTask.AsyncTaskMensajeError;
-import com.rubencfdi.validadorcfdi.AsyncTask.AsyncTaskResponse;
-import com.rubencfdi.validadorcfdi.Dialogos.DialogoLeyendoFactura;
 import com.rubencfdi.validadorcfdi.Librerias.OperacionesQR;
 import com.rubencfdi.validadorcfdi.R;
 
@@ -34,6 +27,8 @@ public class ActivityCamara extends AppCompatActivity implements SurfaceHolder.C
     public TextView textViewMensajeError;
     private RelativeLayout relativeLayoutVertical;
     private RelativeLayout relativeLayoutHorizontal;
+
+    public static final String CODIGO_ENVIAR_QR = "qr";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,14 +98,14 @@ public class ActivityCamara extends AppCompatActivity implements SurfaceHolder.C
 
             if (OperacionesQR.validarFacturaQR(codigoQr)) {
                 Intent intent = new Intent();
-                intent.putExtra("qr", codigoQr);
+                intent.putExtra(CODIGO_ENVIAR_QR, codigoQr);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             } else {
                 textViewMensajeError.post(new Runnable() {
                     @Override
                     public void run() {
-                        textViewMensajeError.setText("No es un código QR");
+                        textViewMensajeError.setText("No es un código QR de factura");
                         textViewMensajeError.postDelayed(new Runnable() {
                             @Override
                             public void run() {

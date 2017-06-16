@@ -6,6 +6,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import com.rubencfdi.validadorcfdi.R;
 
@@ -16,10 +17,18 @@ import com.rubencfdi.validadorcfdi.R;
 public class DialogoLeyendoFactura extends DialogFragment {
 
     private View view;
+    private String cadenaQR;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.dialogo_leyendo_factura, null);
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         return view;
+    }
+
+    public void setCadenaQR(String cadenaQR) {
+        this.cadenaQR = cadenaQR;
     }
 }

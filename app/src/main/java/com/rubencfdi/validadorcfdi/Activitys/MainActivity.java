@@ -2,12 +2,14 @@ package com.rubencfdi.validadorcfdi.Activitys;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
 import com.rubencfdi.validadorcfdi.Adaptadores.SliderAdapterMain;
+import com.rubencfdi.validadorcfdi.Dialogos.DialogoLeyendoFactura;
 import com.rubencfdi.validadorcfdi.Fragments.FragmentPrincipal;
 import com.rubencfdi.validadorcfdi.R;
 
@@ -56,6 +58,13 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == FragmentPrincipal.ACTIVITY_CAMARA && resultCode == Activity.RESULT_OK) {
 
+            if (data.hasExtra(ActivityCamara.CODIGO_ENVIAR_QR)) {
+                DialogoLeyendoFactura dialogoLeyendoFactura = new DialogoLeyendoFactura();
+                dialogoLeyendoFactura.setCadenaQR(data.getStringExtra(ActivityCamara.CODIGO_ENVIAR_QR));
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.add(dialogoLeyendoFactura, "dialogo_leyendo_factura");
+                transaction.commitAllowingStateLoss();
+            }
         }
     }
 }
