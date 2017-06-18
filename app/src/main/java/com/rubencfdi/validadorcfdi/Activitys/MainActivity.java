@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
             if (data.hasExtra(ActivityCamara.CODIGO_ENVIAR_QR)) {
                 DialogoLeyendoFactura dialogoLeyendoFactura = new DialogoLeyendoFactura();
                 dialogoLeyendoFactura.setCadenaQR(data.getStringExtra(ActivityCamara.CODIGO_ENVIAR_QR));
+                dialogoLeyendoFactura.setActivity(this);
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.add(dialogoLeyendoFactura, "dialogo_leyendo_factura");
                 transaction.commitAllowingStateLoss();
