@@ -20,7 +20,7 @@ import java.util.Map;
  */
 
 public class Peticion {
-    public static final String URL_PETICION_SERVIDOR = "";
+    public static final String URL_PETICION_SERVIDOR = "http://10.15.4.246:8080/WebServiceValidacionFactura/validacion.php";
 
     public interface ValidacionFactura {
         void facturaValida();

@@ -32,7 +32,7 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
         inicializarObjetos();
         inicializarEventos();
 
-        //Peticion.validarFactura(cadenaQR, this, activity);
+        Peticion.validarFactura(cadenaQR, this, activity);
         return view;
     }
 

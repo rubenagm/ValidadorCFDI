@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rubencfdi.validadorcfdi.Activitys.ActivityCamara;
 import com.rubencfdi.validadorcfdi.BaseDatos.BaseDatos;
@@ -77,9 +78,19 @@ public class FragmentPrincipal extends Fragment {
                     textViewInvalidos.setText((Integer.parseInt(textViewInvalidos.getText().toString()) + 1) + "");
 
                 LinearLayout linearLayoutItem = (LinearLayout) activity.getLayoutInflater().inflate(R.layout.item_timbre_validado, null);
+                agregarClickLayout(linearLayoutItem);
                 linearLayoutListadoTimbres.addView(Timbre.generarTimbre(linearLayoutItem, timbre));
             }
         }
+    }
+
+    private void agregarClickLayout(LinearLayout linearLayoutItem) {
+        linearLayoutItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void inicializarEventos() {
