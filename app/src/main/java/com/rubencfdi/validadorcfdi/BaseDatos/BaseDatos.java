@@ -43,6 +43,7 @@ public class BaseDatos extends SQLiteOpenHelper {
         contentValues.put("Estatus", timbre.getEstatus());
         contentValues.put("Mensaje", timbre.getMensaje());
         contentValues.put("FechaVerificacion", timbre.getFechaVerificacion());
+        contentValues.put("Estado", timbre.getEstado());
 
         long id = sqLiteDatabase.insert("Timbre", null, contentValues);
         Log.i(Querys.TAG_INSERTAR, "Se insertado un timbre");
@@ -67,8 +68,9 @@ public class BaseDatos extends SQLiteOpenHelper {
                     cursor.getString(cursor.getColumnIndex("Monto")),
                     cursor.getInt(cursor.getColumnIndex("Estatus")),
                     cursor.getString(cursor.getColumnIndex("Mensaje")),
-                    cursor.getString(cursor.getColumnIndex("FechaVerificacion"))
-            ));
+                    cursor.getString(cursor.getColumnIndex("FechaVerificacion")),
+                    cursor.getString(cursor.getColumnIndex("Estado"))
+                    ));
 
             cursor.moveToNext();
         }
@@ -90,8 +92,9 @@ public class BaseDatos extends SQLiteOpenHelper {
                 cursor.getString(cursor.getColumnIndex("Monto")),
                 cursor.getInt(cursor.getColumnIndex("Estatus")),
                 cursor.getString(cursor.getColumnIndex("Mensaje")),
-                cursor.getString(cursor.getColumnIndex("FechaVerificacion"))
-        );
+                cursor.getString(cursor.getColumnIndex("FechaVerificacion")),
+                cursor.getString(cursor.getColumnIndex("Estado"))
+                );
         cursor.close();
 
         return timbre;

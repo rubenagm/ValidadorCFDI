@@ -72,7 +72,7 @@ public class FragmentPrincipal extends Fragment {
 
             for (Timbre timbre : timbres) {
 
-                if (timbre.getEstatus() == 1)
+                if (timbre.getEstatus() == Timbre.VALIDO)
                     textViewValidos.setText((Integer.parseInt(textViewValidos.getText().toString()) + 1) + "");
                 else
                     textViewInvalidos.setText((Integer.parseInt(textViewInvalidos.getText().toString()) + 1) + "");

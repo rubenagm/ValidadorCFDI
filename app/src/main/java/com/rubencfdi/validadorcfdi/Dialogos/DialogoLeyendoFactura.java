@@ -8,9 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.vision.text.Line;
+import com.rubencfdi.validadorcfdi.BaseDatos.BaseDatos;
 import com.rubencfdi.validadorcfdi.Conexion.Peticion;
+import com.rubencfdi.validadorcfdi.Modelos.Timbre;
 import com.rubencfdi.validadorcfdi.R;
 
 /**
@@ -23,6 +27,8 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
     private View view;
     private TextView textViewCancelar;
     private Activity activity;
+    private LinearLayout linearLayoutLeyendo;
+    private LinearLayout linearLayoutVigente;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,6 +53,8 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
 
     private void inicializarObjetos() {
         textViewCancelar = (TextView) view.findViewById(R.id.dialogo_leyendo_factura_text_cancelar);
+        linearLayoutLeyendo = (LinearLayout) view.findViewById(R.id.dialogo_leyendo_factura_leyendo);
+        linearLayoutVigente = (LinearLayout) view.findViewById(R.id.dialogo_leyendo_factura_correcto);
     }
 
     public void setCadenaQR(String cadenaQR) {
@@ -59,12 +67,16 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
     }
 
     @Override
-    public void facturaValida() {
-
+    public void facturaValida(String json) {
+        linearLayoutLeyendo.setVisibility(View.GONE);
+        linearLayoutVigente.setVisibility(View.VISIBLE);
+        Timbre timbre = new Timbre(json);
+        BaseDatos baseDatos = new BaseDatos(activity);
+        baseDatos.insertarTimbre(timbre);
     }
 
     @Override
-    public void facturaInvalida() {
+    public void facturaInvalida(String json) {
 
     }
 

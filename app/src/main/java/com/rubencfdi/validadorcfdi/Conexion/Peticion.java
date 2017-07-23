@@ -20,16 +20,16 @@ import java.util.Map;
  */
 
 public class Peticion {
-    public static final String URL_PETICION_SERVIDOR = "http://10.15.4.246:8080/WebServiceValidacionFactura/validacion.php";
+    public static final String URL_PETICION_SERVIDOR = "http://192.168.100.6/WebServiceValidacionFactura/validacion.php";
 
     public interface ValidacionFactura {
-        void facturaValida();
-        void facturaInvalida();
+        void facturaValida(String json);
+        void facturaInvalida(String json);
         void error();
     }
 
     public static void validarFactura (final String qr, final ValidacionFactura validacionFactura, Activity activity) {
-        StringRequest postRequest = new StringRequest(Request.Method.PUT, URL_PETICION_SERVIDOR,
+        StringRequest postRequest = new StringRequest(Request.Method.POST, URL_PETICION_SERVIDOR,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -37,9 +37,9 @@ public class Peticion {
 
                         //Si la factura fue generada correctamente
                         if (true)
-                            validacionFactura.facturaValida();
+                            validacionFactura.facturaValida(response);
                         else
-                            validacionFactura.facturaInvalida();
+                            validacionFactura.facturaInvalida(response);
 
                     }
                 },

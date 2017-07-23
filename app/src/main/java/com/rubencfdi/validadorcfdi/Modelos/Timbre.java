@@ -6,12 +6,20 @@ import android.widget.TextView;
 
 import com.rubencfdi.validadorcfdi.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by Ruben on 27/04/2017
  */
 
 public class Timbre {
 
+    /*
+    1.- Válido
+    2.- Inválido
+    3.- No se pudo verificar
+     */
     private int id;
     private String uuid;
     private String rfcReceptor;
@@ -20,11 +28,50 @@ public class Timbre {
     private int estatus;
     private String mensaje;
     private String fechaVerificacion;
+    private String estado;
+
+    public static final String VIGENTE = "Vigente";
+
+    public static final int VALIDO = 1;
+    public static final int INVALIDO = 2;
+    public static final int NO_DISPONIBLE = 3;
+
+    public static final String LLAVE_JSON_EMISOR = "rfcEmisor";
+    public static final String LLAVE_JSON_RECEPTOR = "rfcReceptor";
+    public static final String LLAVE_JSON_TOTAL = "total";
+    public static final String LLAVE_JSON_ID = "id";
+    public static final String LLAVE_JSON_ESTATUS = "estatus";
+    public static final String LLAVE_JSON_ESTADO = "estado";
+    public static final String LLAVE_JSON_FECHA_VERIFICACION = "fechaVerificacion";
 
     public Timbre()
     {}
 
-    public Timbre(int id, String uuid, String rfcReceptor, String rfcEmisor, String monto, int estatus, String mensaje, String fechaVerificacion)
+    public Timbre(String json)
+    {
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            rfcEmisor = jsonObject.getString(LLAVE_JSON_EMISOR);
+            rfcReceptor = jsonObject.getString(LLAVE_JSON_RECEPTOR);
+            monto = jsonObject.getString(LLAVE_JSON_TOTAL);
+            mensaje = jsonObject.getString(LLAVE_JSON_ESTATUS);
+            uuid = jsonObject.getString(LLAVE_JSON_ID);
+            estado = jsonObject.getString(LLAVE_JSON_ESTADO);
+            rfcEmisor = jsonObject.getString(LLAVE_JSON_EMISOR);
+            fechaVerificacion = jsonObject.getString(LLAVE_JSON_FECHA_VERIFICACION);
+
+            if (estado.equals(VIGENTE))
+                estatus = VALIDO;
+            else
+                estatus = INVALIDO;
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Timbre(int id, String uuid, String rfcReceptor, String rfcEmisor, String monto, int estatus, String mensaje, String fechaVerificacion, String estado)
     {
         this.id = id;
         this.uuid = uuid;
@@ -34,6 +81,7 @@ public class Timbre {
         this.estatus = estatus;
         this.mensaje = mensaje;
         this.fechaVerificacion = fechaVerificacion;
+        this.estado = estado;
     }
 
     public String getUuid() {
@@ -109,16 +157,22 @@ public class Timbre {
         if (timbre.getEstatus() == 1) {
             ((TextView) linearLayout.findViewById(R.id.item_timbre_text_valido)).setText("Válido");
             ((ImageView) linearLayout.findViewById(R.id.item_timbre_icono_valido)).setImageResource(R.mipmap.icono_valido);
-            ((TextView) linearLayout.findViewById(R.id.item_timbre_text_linea_valido)).setBackgroundResource(R.color.colorValido);
+            linearLayout.findViewById(R.id.item_timbre_text_linea_valido).setBackgroundResource(R.color.colorValido);
         }
         else {
             ((TextView) linearLayout.findViewById(R.id.item_timbre_text_valido)).setText("Inválido");
             ((ImageView) linearLayout.findViewById(R.id.item_timbre_icono_valido)).setImageResource(R.mipmap.icono_invalido);
-            ((TextView) linearLayout.findViewById(R.id.item_timbre_text_linea_valido)).setBackgroundResource(R.color.colorInvalido);
+            linearLayout.findViewById(R.id.item_timbre_text_linea_valido).setBackgroundResource(R.color.colorInvalido);
         }
 
-
-
         return linearLayout;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }
