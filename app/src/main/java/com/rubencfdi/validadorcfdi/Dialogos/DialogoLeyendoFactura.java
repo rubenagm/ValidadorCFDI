@@ -29,8 +29,9 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
     private View view;
     private TextView textViewCancelar;
     private MainActivity mainActivity;
-    private LinearLayout linearLayoutLeyendo;
+    private View viewLeyendo;
     private View viewVigente;
+    private View viewSinRespuesta;
     private TextView textViewAceptar;
 
     @Override
@@ -62,9 +63,10 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
 
     private void inicializarObjetos() {
         textViewCancelar = (TextView) view.findViewById(R.id.dialogo_leyendo_factura_text_cancelar);
-        linearLayoutLeyendo = (LinearLayout) view.findViewById(R.id.dialogo_leyendo_factura_leyendo);
+        viewLeyendo = view.findViewById(R.id.dialogo_leyendo_factura_leyendo);
         viewVigente = view.findViewById(R.id.dialogo_leyendo_factura_vigente);
         textViewAceptar = (TextView) view.findViewById(R.id.dialogo_leyendo_factura_text_aceptar);
+        viewSinRespuesta = view.findViewById(R.id.dialogo_leyendo_factura_sin_respuesta);
     }
 
     public void setCadenaQR(String cadenaQR) {
@@ -78,7 +80,7 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
 
     @Override
     public void facturaValida(String json) {
-        linearLayoutLeyendo.setVisibility(View.GONE);
+        viewLeyendo.setVisibility(View.GONE);
         viewVigente.setVisibility(View.VISIBLE);
         Timbre timbre = new Timbre(json);
         BaseDatos baseDatos = new BaseDatos(mainActivity);
@@ -93,6 +95,7 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
 
     @Override
     public void error() {
-
+        viewLeyendo.setVisibility(View.GONE);
+        viewSinRespuesta.setVisibility(View.VISIBLE);
     }
 }

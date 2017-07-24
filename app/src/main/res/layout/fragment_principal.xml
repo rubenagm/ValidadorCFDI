@@ -154,20 +154,13 @@
                     android:background="@color/colorBlack" />
             </RelativeLayout>
             <!-- Contiene la lista de los timbres validados-->
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorWhite">
-            <LinearLayout
-                android:id="@+id/linearLayoutListadoTimbres"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+
+
+            <ListView
                 android:background="@color/colorWhite"
-                android:orientation="vertical"
-                android:visibility="gone"></LinearLayout>
-
-            </ScrollView>
-
+                android:id="@+id/fragment_principal_list_elementos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></ListView>
             <RelativeLayout
                 android:visibility="gone"
                 android:id="@+id/fragment_principal_relative_sin_timbres"
@@ -177,7 +170,6 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="20dp"
                 android:background="@color/colorWhite">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

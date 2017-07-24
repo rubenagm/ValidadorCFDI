@@ -13,18 +13,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rubencfdi.validadorcfdi.Activitys.ActivityCamara;
+import com.rubencfdi.validadorcfdi.Adaptadores.ArrayAdapterTimbres;
 import com.rubencfdi.validadorcfdi.BaseDatos.BaseDatos;
 import com.rubencfdi.validadorcfdi.Modelos.Timbre;
 import com.rubencfdi.validadorcfdi.R;
 
 import java.util.ArrayList;
-
-import static com.rubencfdi.validadorcfdi.R.id.linearLayoutListadoTimbres;
 
 /**
  * Created by Rubén on 01/06/2017
@@ -40,6 +40,7 @@ public class FragmentPrincipal extends Fragment {
     private TextView textViewInvalidos;
     private ArrayList<Timbre> timbres;
     private ImageView imageViewCamara;
+    private ListView listViewTimbres;
     private ViewPager viewPager;
     private RelativeLayout relativeLayoutSinTimbres;
 
@@ -63,14 +64,14 @@ public class FragmentPrincipal extends Fragment {
         BaseDatos baseDatos = new BaseDatos(activity);
         timbres = baseDatos.consultarTimbres();
         textViewConsultados.setText(Integer.toString(timbres.size()));
+        ArrayAdapterTimbres arrayAdapterTimbres = new ArrayAdapterTimbres(activity, timbres);
+        listViewTimbres.setAdapter(arrayAdapterTimbres);
 
         //Se limpian los datos de pantalla
-        linearLayoutListadoTimbres.removeAllViews();
         textViewValidos.setText("0");
         textViewInvalidos.setText("0");
 
         if (timbres.size() > 0) {
-            linearLayoutListadoTimbres.setVisibility(View.VISIBLE);
 
             for (Timbre timbre : timbres) {
 
@@ -78,10 +79,6 @@ public class FragmentPrincipal extends Fragment {
                     textViewValidos.setText((Integer.parseInt(textViewValidos.getText().toString()) + 1) + "");
                 else
                     textViewInvalidos.setText((Integer.parseInt(textViewInvalidos.getText().toString()) + 1) + "");
-
-                LinearLayout linearLayoutItem = (LinearLayout) activity.getLayoutInflater().inflate(R.layout.item_timbre_validado, null);
-                agregarClickLayout(linearLayoutItem);
-                linearLayoutListadoTimbres.addView(Timbre.generarTimbre(linearLayoutItem, timbre));
             }
         } else {
             relativeLayoutSinTimbres.setVisibility(View.VISIBLE);
@@ -110,12 +107,12 @@ public class FragmentPrincipal extends Fragment {
     }
 
     private void inicializarObjetos() {
-        linearLayoutListadoTimbres = (LinearLayout) view.findViewById(R.id.linearLayoutListadoTimbres);
         textViewConsultados = (TextView) view.findViewById(R.id.fragment_principal_text_total_consultados);
         textViewValidos = (TextView) view.findViewById(R.id.fragment_principal_text_validos);
         textViewInvalidos = (TextView) view.findViewById(R.id.fragment_principal_text_invalidos);
         imageViewCamara = (ImageView) view.findViewById(R.id.fragment_principal_boton_camara);
         relativeLayoutSinTimbres = (RelativeLayout) view.findViewById(R.id.fragment_principal_relative_sin_timbres);
+        listViewTimbres = (ListView) view.findViewById(R.id.fragment_principal_list_elementos);
     }
 
     public FragmentPrincipal setActivity(Activity activity) {
