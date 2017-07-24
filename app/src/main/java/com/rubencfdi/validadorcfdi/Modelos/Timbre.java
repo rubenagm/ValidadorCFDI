@@ -155,7 +155,7 @@ public class Timbre {
         ((TextView) linearLayout.findViewById(R.id.item_timbre_text_monto)).setText(timbre.getMonto());
 
         if (timbre.getEstatus() == 1) {
-            ((TextView) linearLayout.findViewById(R.id.item_timbre_text_valido)).setText("Válido");
+            ((TextView) linearLayout.findViewById(R.id.item_timbre_text_valido)).setText("Vigente");
             ((ImageView) linearLayout.findViewById(R.id.item_timbre_icono_valido)).setImageResource(R.mipmap.icono_valido);
             linearLayout.findViewById(R.id.item_timbre_text_linea_valido).setBackgroundResource(R.color.colorValido);
         }

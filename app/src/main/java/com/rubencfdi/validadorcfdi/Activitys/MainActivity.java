@@ -16,6 +16,7 @@ import com.rubencfdi.validadorcfdi.R;
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
+    private SliderAdapterMain sliderAdapterMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void inicializarObjetos() {
         viewPager = (ViewPager) findViewById(R.id.activity_main_slider);
-        SliderAdapterMain sliderAdapterMain = new SliderAdapterMain(getSupportFragmentManager(), this, viewPager, getSupportFragmentManager());
+        sliderAdapterMain = new SliderAdapterMain(getSupportFragmentManager(), this, viewPager, getSupportFragmentManager());
         viewPager.setAdapter(sliderAdapterMain);
         viewPager.setCurrentItem(0);
     }
@@ -61,11 +62,15 @@ public class MainActivity extends AppCompatActivity {
             if (data.hasExtra(ActivityCamara.CODIGO_ENVIAR_QR)) {
                 DialogoLeyendoFactura dialogoLeyendoFactura = new DialogoLeyendoFactura();
                 dialogoLeyendoFactura.setCadenaQR(data.getStringExtra(ActivityCamara.CODIGO_ENVIAR_QR));
-                dialogoLeyendoFactura.setActivity(this);
+                dialogoLeyendoFactura.setMainActivity(this);
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.add(dialogoLeyendoFactura, "dialogo_leyendo_factura");
                 transaction.commitAllowingStateLoss();
             }
         }
+    }
+
+    public void refrescarLista() {
+        sliderAdapterMain.refrescarLista();
     }
 }

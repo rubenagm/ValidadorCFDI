@@ -12,5 +12,5 @@ public class Querys {
             "CREATE TABLE Timbre (Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, UUID TEXT, rfcEmisor TEXT,  rfcReceptor TEXT, Monto String, Estatus INTEGER, Mensaje TEXT, FechaVerificacion DATETIME, Estado TEXT)";
 
     public static final String SELECT_TIMBRE =
-            "SELECT * FROM Timbre";
+            "SELECT * FROM Timbre ORDER BY FechaVerificacion DESC";
 }

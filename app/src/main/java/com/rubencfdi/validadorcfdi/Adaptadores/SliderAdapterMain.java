@@ -17,6 +17,8 @@ public class SliderAdapterMain extends FragmentStatePagerAdapter{
 
     private Activity activity;
     private ViewPager viewPager;
+    private FragmentPrincipal fragmentPrincipal;
+    private FragmentAjustes fragmentAjustes;
 
     public SliderAdapterMain(FragmentManager fm, Activity activity, ViewPager viewPager, FragmentManager fragmentManager) {
         super(fm);
@@ -28,13 +30,17 @@ public class SliderAdapterMain extends FragmentStatePagerAdapter{
     public Fragment getItem(int position) {
         switch (position) {
             case 0 : {
-                return new FragmentPrincipal()
+                fragmentPrincipal = new FragmentPrincipal()
                         .setActivity(activity)
                         .setViewPager(viewPager);
+
+                return fragmentPrincipal;
             }
             case 1 : {
-                return new FragmentAjustes()
+                fragmentAjustes = new FragmentAjustes()
                         .setViewPager(viewPager);
+
+                return fragmentAjustes;
             }
 
             default: return null;
@@ -44,5 +50,9 @@ public class SliderAdapterMain extends FragmentStatePagerAdapter{
     @Override
     public int getCount() {
         return 2;
+    }
+
+    public void refrescarLista () {
+        fragmentPrincipal.cargarTimbresGuardados();
     }
 }

@@ -12,8 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.text.Line;
+import com.rubencfdi.validadorcfdi.Activitys.MainActivity;
 import com.rubencfdi.validadorcfdi.BaseDatos.BaseDatos;
 import com.rubencfdi.validadorcfdi.Conexion.Peticion;
+import com.rubencfdi.validadorcfdi.Fragments.FragmentPrincipal;
 import com.rubencfdi.validadorcfdi.Modelos.Timbre;
 import com.rubencfdi.validadorcfdi.R;
 
@@ -26,9 +28,10 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
     private String cadenaQR;
     private View view;
     private TextView textViewCancelar;
-    private Activity activity;
+    private MainActivity mainActivity;
     private LinearLayout linearLayoutLeyendo;
-    private LinearLayout linearLayoutVigente;
+    private View viewVigente;
+    private TextView textViewAceptar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,7 +41,7 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
         inicializarObjetos();
         inicializarEventos();
 
-        Peticion.validarFactura(cadenaQR, this, activity);
+        Peticion.validarFactura(cadenaQR, this, mainActivity);
         return view;
     }
 
@@ -49,12 +52,19 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
                 getDialog().dismiss();
             }
         });
+        textViewAceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDialog().dismiss();
+            }
+        });
     }
 
     private void inicializarObjetos() {
         textViewCancelar = (TextView) view.findViewById(R.id.dialogo_leyendo_factura_text_cancelar);
         linearLayoutLeyendo = (LinearLayout) view.findViewById(R.id.dialogo_leyendo_factura_leyendo);
-        linearLayoutVigente = (LinearLayout) view.findViewById(R.id.dialogo_leyendo_factura_correcto);
+        viewVigente = view.findViewById(R.id.dialogo_leyendo_factura_vigente);
+        textViewAceptar = (TextView) view.findViewById(R.id.dialogo_leyendo_factura_text_aceptar);
     }
 
     public void setCadenaQR(String cadenaQR) {
@@ -62,17 +72,18 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
     }
 
 
-    public void setActivity(Activity activity) {
-        this.activity = activity;
+    public void setMainActivity(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
     }
 
     @Override
     public void facturaValida(String json) {
         linearLayoutLeyendo.setVisibility(View.GONE);
-        linearLayoutVigente.setVisibility(View.VISIBLE);
+        viewVigente.setVisibility(View.VISIBLE);
         Timbre timbre = new Timbre(json);
-        BaseDatos baseDatos = new BaseDatos(activity);
+        BaseDatos baseDatos = new BaseDatos(mainActivity);
         baseDatos.insertarTimbre(timbre);
+        mainActivity.refrescarLista();
     }
 
     @Override

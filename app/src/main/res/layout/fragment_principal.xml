@@ -3,10 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
-        android:background="@color/colorWhite"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,6 +19,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:background="@color/colorAzulMedio">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -68,6 +66,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
@@ -75,10 +74,12 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:orientation="horizontal">
+
                             <ImageView
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
                                 android:src="@drawable/qr_negro" />
+
                             <TextView
                                 android:id="@+id/fragment_principal_text_total_consultados"
                                 android:layout_width="wrap_content"
@@ -89,6 +90,7 @@
                                 android:textColor="@color/colorBlack"
                                 android:textSize="25sp" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
@@ -96,10 +98,12 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:orientation="horizontal">
+
                             <ImageView
                                 android:layout_width="25dp"
                                 android:layout_height="25dp"
                                 android:src="@mipmap/icono_valido" />
+
                             <TextView
                                 android:id="@+id/fragment_principal_text_validos"
                                 android:layout_width="wrap_content"
@@ -141,6 +145,7 @@
                             android:layout_weight=".8"></LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -149,28 +154,37 @@
                     android:background="@color/colorBlack" />
             </RelativeLayout>
             <!-- Contiene la lista de los timbres validados-->
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite">
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/linearLayoutListadoTimbres"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorWhite"
-                android:orientation="vertical"></LinearLayout>
+                android:orientation="vertical"
+                android:visibility="gone"></LinearLayout>
+
+            </ScrollView>
+
             <RelativeLayout
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginLeft="40dp"
-                android:background="@color/colorWhite"
+                android:visibility="gone"
+                android:id="@+id/fragment_principal_relative_sin_timbres"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorWhite">
+
                 <TextView
-                    android:gravity="center"
-                    android:textSize="13sp"
-                    android:fontFamily="sans-serif-light"
-                    android:text="No tienes verificado ningún timbre, para comenzar presiona o desliza para activar la cámara y comenzar"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    android:text="No tienes verificado ningún timbre, para comenzar presiona o desliza para activar la cámara y comenzar"
+                    android:textSize="13sp" />
             </RelativeLayout>
         </LinearLayout>
-    </ScrollView>
 </LinearLayout>

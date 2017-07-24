@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ public class FragmentPrincipal extends Fragment {
     private ArrayList<Timbre> timbres;
     private ImageView imageViewCamara;
     private ViewPager viewPager;
+    private RelativeLayout relativeLayoutSinTimbres;
 
     public static final int ACTIVITY_CAMARA = 28747;
 
@@ -57,7 +59,7 @@ public class FragmentPrincipal extends Fragment {
         super.onResume();
     }
 
-    private void cargarTimbresGuardados() {
+    public void cargarTimbresGuardados() {
         BaseDatos baseDatos = new BaseDatos(activity);
         timbres = baseDatos.consultarTimbres();
         textViewConsultados.setText(Integer.toString(timbres.size()));
@@ -81,6 +83,8 @@ public class FragmentPrincipal extends Fragment {
                 agregarClickLayout(linearLayoutItem);
                 linearLayoutListadoTimbres.addView(Timbre.generarTimbre(linearLayoutItem, timbre));
             }
+        } else {
+            relativeLayoutSinTimbres.setVisibility(View.VISIBLE);
         }
     }
 
@@ -111,6 +115,7 @@ public class FragmentPrincipal extends Fragment {
         textViewValidos = (TextView) view.findViewById(R.id.fragment_principal_text_validos);
         textViewInvalidos = (TextView) view.findViewById(R.id.fragment_principal_text_invalidos);
         imageViewCamara = (ImageView) view.findViewById(R.id.fragment_principal_boton_camara);
+        relativeLayoutSinTimbres = (RelativeLayout) view.findViewById(R.id.fragment_principal_relative_sin_timbres);
     }
 
     public FragmentPrincipal setActivity(Activity activity) {
