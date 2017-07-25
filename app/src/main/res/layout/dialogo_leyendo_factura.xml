@@ -17,7 +17,7 @@
         <!-- Layout vigente -->
         <include
             android:visibility="gone"
-            android:id="@+id/dialogo_leyendo_factura_vigente"
+            android:id="@+id/dialogo_leyendo_factura_timbre"
             layout="@layout/layout_vigente"
             />
         <!-- Cuando no se tiene respuesta del servidor -->

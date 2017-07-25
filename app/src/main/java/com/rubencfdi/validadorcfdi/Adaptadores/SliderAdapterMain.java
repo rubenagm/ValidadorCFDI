@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
+import com.rubencfdi.validadorcfdi.Activitys.MainActivity;
 import com.rubencfdi.validadorcfdi.Fragments.FragmentAjustes;
 import com.rubencfdi.validadorcfdi.Fragments.FragmentPrincipal;
 
@@ -15,14 +16,14 @@ import com.rubencfdi.validadorcfdi.Fragments.FragmentPrincipal;
 
 public class SliderAdapterMain extends FragmentStatePagerAdapter{
 
-    private Activity activity;
+    private MainActivity mainActivity;
     private ViewPager viewPager;
     private FragmentPrincipal fragmentPrincipal;
     private FragmentAjustes fragmentAjustes;
 
-    public SliderAdapterMain(FragmentManager fm, Activity activity, ViewPager viewPager, FragmentManager fragmentManager) {
+    public SliderAdapterMain(FragmentManager fm, MainActivity mainActivity, ViewPager viewPager, FragmentManager fragmentManager) {
         super(fm);
-        this.activity = activity;
+        this.mainActivity = mainActivity;
         this.viewPager = viewPager;
     }
 
@@ -31,7 +32,7 @@ public class SliderAdapterMain extends FragmentStatePagerAdapter{
         switch (position) {
             case 0 : {
                 fragmentPrincipal = new FragmentPrincipal()
-                        .setActivity(activity)
+                        .setActivity(mainActivity)
                         .setViewPager(viewPager);
 
                 return fragmentPrincipal;

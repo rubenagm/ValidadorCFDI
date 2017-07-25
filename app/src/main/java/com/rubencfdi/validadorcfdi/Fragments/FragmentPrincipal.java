@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rubencfdi.validadorcfdi.Activitys.ActivityCamara;
+import com.rubencfdi.validadorcfdi.Activitys.MainActivity;
 import com.rubencfdi.validadorcfdi.Adaptadores.ArrayAdapterTimbres;
 import com.rubencfdi.validadorcfdi.BaseDatos.BaseDatos;
 import com.rubencfdi.validadorcfdi.Modelos.Timbre;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 public class FragmentPrincipal extends Fragment {
 
     private View view;
-    private Activity activity;
+    private MainActivity mainActivity;
     private LinearLayout linearLayoutListadoTimbres;
     private TextView textViewConsultados;
     private TextView textViewValidos;
@@ -61,10 +62,10 @@ public class FragmentPrincipal extends Fragment {
     }
 
     public void cargarTimbresGuardados() {
-        BaseDatos baseDatos = new BaseDatos(activity);
+        BaseDatos baseDatos = new BaseDatos(mainActivity);
         timbres = baseDatos.consultarTimbres();
         textViewConsultados.setText(Integer.toString(timbres.size()));
-        ArrayAdapterTimbres arrayAdapterTimbres = new ArrayAdapterTimbres(activity, timbres);
+        ArrayAdapterTimbres arrayAdapterTimbres = new ArrayAdapterTimbres(mainActivity, timbres);
         listViewTimbres.setAdapter(arrayAdapterTimbres);
 
         //Se limpian los datos de pantalla
@@ -98,9 +99,9 @@ public class FragmentPrincipal extends Fragment {
         imageViewCamara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, ActivityCamara.class);
-                activity.overridePendingTransition(0, 0);
-                activity.startActivityForResult(intent, ACTIVITY_CAMARA);
+                Intent intent = new Intent(mainActivity, ActivityCamara.class);
+                mainActivity.overridePendingTransition(0, 0);
+                mainActivity.startActivityForResult(intent, ACTIVITY_CAMARA);
             }
         });
 
@@ -115,8 +116,8 @@ public class FragmentPrincipal extends Fragment {
         listViewTimbres = (ListView) view.findViewById(R.id.fragment_principal_list_elementos);
     }
 
-    public FragmentPrincipal setActivity(Activity activity) {
-        this.activity = activity;
+    public FragmentPrincipal setActivity(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
 
         return this;
     }

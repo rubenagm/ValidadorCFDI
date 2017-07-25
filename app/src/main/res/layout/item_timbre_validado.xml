@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="140dp">
     <LinearLayout
+        android:id="@+id/item_timbre_linear_layout"
         android:background="@color/colorWhite"
         android:orientation="horizontal"
         android:layout_width="match_parent"

@@ -30,9 +30,17 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
     private TextView textViewCancelar;
     private MainActivity mainActivity;
     private View viewLeyendo;
-    private View viewVigente;
+    private View viewTimbre;
     private View viewSinRespuesta;
     private TextView textViewAceptar;
+    private Timbre timbre;
+
+    private TextView textViewEmisor;
+    private TextView textViewReceptor;
+    private TextView textViewTotal;
+    private TextView textViewId;
+    private TextView textViewEstado;
+    private TextView textViewEstatus;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,8 +50,25 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
         inicializarObjetos();
         inicializarEventos();
 
-        Peticion.validarFactura(cadenaQR, this, mainActivity);
+        if (cadenaQR != null)
+            Peticion.validarFactura(cadenaQR, this, mainActivity);
+
         return view;
+    }
+
+    public void mostrarTimbre(int valido) {
+
+        viewLeyendo.setVisibility(View.GONE);
+        viewTimbre.setVisibility(View.VISIBLE);
+
+        if (timbre != null) {
+            textViewEmisor.setText(timbre.getRfcEmisor());
+            textViewReceptor.setText(timbre.getRfcReceptor());
+            textViewTotal.setText(timbre.getMonto());
+            textViewId.setText(timbre.getUuid());
+            textViewEstado.setText(timbre.getEstado());
+            textViewEstatus.setText(timbre.getMensaje());
+        }
     }
 
     private void inicializarEventos() {
@@ -64,9 +89,15 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
     private void inicializarObjetos() {
         textViewCancelar = (TextView) view.findViewById(R.id.dialogo_leyendo_factura_text_cancelar);
         viewLeyendo = view.findViewById(R.id.dialogo_leyendo_factura_leyendo);
-        viewVigente = view.findViewById(R.id.dialogo_leyendo_factura_vigente);
+        viewTimbre = view.findViewById(R.id.dialogo_leyendo_factura_timbre);
         textViewAceptar = (TextView) view.findViewById(R.id.dialogo_leyendo_factura_text_aceptar);
         viewSinRespuesta = view.findViewById(R.id.dialogo_leyendo_factura_sin_respuesta);
+        textViewEmisor = (TextView) view.findViewById(R.id.layout_vigente_text_emisor);
+        textViewReceptor = (TextView) view.findViewById(R.id.layout_vigente_text_receptor);
+        textViewTotal = (TextView) view.findViewById(R.id.layout_vigente_text_total);
+        textViewId = (TextView) view.findViewById(R.id.layout_vigente_text_id);
+        textViewEstado = (TextView) view.findViewById(R.id.layout_vigente_text_estado);
+        textViewEstatus = (TextView) view.findViewById(R.id.layout_vigente_text_estatus);
     }
 
     public void setCadenaQR(String cadenaQR) {
@@ -80,9 +111,8 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
 
     @Override
     public void facturaValida(String json) {
-        viewLeyendo.setVisibility(View.GONE);
-        viewVigente.setVisibility(View.VISIBLE);
-        Timbre timbre = new Timbre(json);
+        timbre = new Timbre(json);
+        mostrarTimbre(Timbre.VALIDO);
         BaseDatos baseDatos = new BaseDatos(mainActivity);
         baseDatos.insertarTimbre(timbre);
         mainActivity.refrescarLista();
@@ -97,5 +127,9 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
     public void error() {
         viewLeyendo.setVisibility(View.GONE);
         viewSinRespuesta.setVisibility(View.VISIBLE);
+    }
+
+    public void setTimbre(Timbre timbre) {
+        this.timbre = timbre;
     }
 }
