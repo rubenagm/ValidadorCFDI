@@ -73,7 +73,7 @@
                             android:layout_height="wrap_content" />
                         <TextView
                             android:id="@+id/item_timbre_text_rfc_emisor"
-                            android:textSize="18sp"
+                            android:textSize="17sp"
                             android:textColor="@color/colorBlack"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -92,7 +92,7 @@
                             android:layout_height="wrap_content" />
                         <TextView
                             android:id="@+id/item_timbre_text_rfc_receptor"
-                            android:textSize="18sp"
+                            android:textSize="17sp"
                             android:textColor="@color/colorBlack"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -105,7 +105,7 @@
                     <TextView
                         android:fontFamily="sans-serif-light"
                         android:textSize="13sp"
-                        android:layout_marginTop="3dp"
+                        android:layout_marginTop="1dp"
                         android:textColor="@color/colorCafe"
                         android:gravity="center"
                         android:layout_gravity="center"
@@ -114,7 +114,7 @@
                         android:layout_height="wrap_content" />
                     <TextView
                         android:id="@+id/item_timbre_text_monto"
-                        android:textSize="23sp"
+                        android:textSize="24sp"
                         android:textColor="@color/colorBlack"
                         android:gravity="center"
                         android:layout_width="match_parent"

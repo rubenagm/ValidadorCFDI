@@ -4,178 +4,242 @@ android:background="@color/colorWhite"
 android:orientation="vertical"
 android:layout_width="match_parent"
 android:layout_height="wrap_content">
-<LinearLayout
-    android:layout_marginTop="10dp"
-    android:gravity="center_horizontal"
-    android:layout_gravity="center_horizontal"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <ImageView
-        android:src="@mipmap/icono_valido"
-        android:layout_width="40dp"
-        android:layout_height="40dp" />
-    <TextView
-        android:layout_marginLeft="20dp"
-        android:alpha=".87"
-        android:textColor="@color/colorBlack"
-        android:fontFamily="sans-serif-light"
-        android:textSize="26sp"
-        android:layout_gravity="center_vertical"
-        android:text="Vigente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-</LinearLayout>
-<TextView
-    android:layout_marginTop="15dp"
-    android:alpha=".2"
-    android:background="@color/colorBlack"
-    android:layout_width="match_parent"
-    android:layout_height="1dp" />
-<LinearLayout
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <!-- Encabezados-->
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_weight="2"
-        android:layout_width="0dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/icono_valido"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
         <TextView
-            android:textStyle="bold"
-            android:gravity="center_vertical"
-            android:layout_gravity="right|center_vertical"
-            android:textSize="15sp"
+            android:layout_marginLeft="20dp"
+            android:alpha=".87"
             android:textColor="@color/colorBlack"
-            android:text="Emisor:"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp" />
-        <TextView
-            android:textStyle="bold"
-            android:gravity="center_vertical"
-            android:layout_gravity="right|center_vertical"
-            android:textSize="15sp"
-            android:textColor="@color/colorBlack"
-            android:text="Receptor:"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp" />
-        <TextView
-            android:textStyle="bold"
-            android:gravity="center_vertical"
-            android:layout_gravity="right"
-            android:textSize="15sp"
-            android:textColor="@color/colorBlack"
-            android:text="Total:"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp" />
-        <TextView
-            android:textStyle="bold"
-            android:gravity="center_vertical"
-            android:layout_gravity="right"
-            android:textSize="15sp"
-            android:textColor="@color/colorBlack"
-            android:text="ID:"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp" />
-        <TextView
-            android:textStyle="bold"
-            android:gravity="center_vertical"
-            android:layout_gravity="right"
-            android:textSize="15sp"
-            android:textColor="@color/colorBlack"
-            android:text="Estatus:"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp" />
-        <TextView
-            android:textStyle="bold"
-            android:gravity="center_vertical"
-            android:layout_gravity="right"
-            android:textSize="15sp"
-            android:textColor="@color/colorBlack"
-            android:text="Estado:"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp" />
-    </LinearLayout>
-    <!-- Valores-->
-    <LinearLayout
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="5dp"
-        android:orientation="vertical"
-        android:layout_weight="5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/layout_vigente_text_emisor"
-            android:gravity="center_vertical"
             android:fontFamily="sans-serif-light"
+            android:textSize="20sp"
             android:layout_gravity="center_vertical"
-            android:textSize="21sp"
-            android:textColor="@color/colorBlack"
-            android:text="SPC130227L99"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp" />
-        <TextView
-            android:id="@+id/layout_vigente_text_receptor"
-            android:gravity="center_vertical"
-            android:fontFamily="sans-serif-light"
-            android:layout_gravity="center_vertical"
-            android:textSize="21sp"
-            android:textColor="@color/colorBlack"
-            android:text="GUMR920202RT1"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp" />
-        <TextView
-            android:id="@+id/layout_vigente_text_total"
-            android:gravity="center_vertical"
-            android:fontFamily="sans-serif-light"
-            android:layout_gravity="center_vertical"
-            android:textSize="19sp"
-            android:textColor="@color/colorBlack"
-            android:text="$ 6312.590000"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp" />
-        <TextView
-            android:id="@+id/layout_vigente_text_id"
-            android:gravity="center_vertical"
-            android:fontFamily="sans-serif-light"
-            android:layout_gravity="center_vertical"
-            android:textSize="15sp"
-            android:textColor="@color/colorBlack"
-            android:text="e30e3575-5d28-4f36-9bbc-33b80d81646a"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp" />
-        <TextView
-            android:id="@+id/layout_vigente_text_estatus"
-            android:gravity="center_vertical"
-            android:fontFamily="sans-serif-light"
-            android:layout_gravity="center_vertical"
-            android:textSize="15sp"
-            android:textColor="@color/colorBlack"
-            android:text="S - Comprobante obtenido satisfactoriamente."
-            android:layout_width="wrap_content"
-            android:layout_height="40dp" />
-        <TextView
-            android:id="@+id/layout_vigente_text_estado"
-            android:gravity="center_vertical"
-            android:fontFamily="sans-serif-light"
-            android:layout_gravity="center_vertical"
-            android:textSize="18sp"
-            android:textColor="@color/colorBlack"
             android:text="Vigente"
             android:layout_width="wrap_content"
-            android:layout_height="40dp" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
-</LinearLayout>
-<TextView
-    android:id="@+id/dialogo_leyendo_factura_text_aceptar"
-    android:layout_marginRight="20dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="20dp"
-    android:layout_gravity="right"
-    android:textColor="@color/wallet_holo_blue_light"
-    android:text="ACEPTAR"
-    android:textSize="15sp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="3dp"
+        android:layout_gravity="center_horizontal"
+        android:alpha=".7"
+        android:textColor="@color/colorBlack"
+        android:fontFamily="sans-serif-light"
+        android:textSize="13sp"
+        android:text="Verificado: 10 Julio 2017"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:alpha=".15"
+        android:background="@color/colorBlack"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!-- Encabezados-->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:layout_gravity="right|center_vertical"
+                android:textSize="15sp"
+                android:textColor="@color/colorBlack"
+                android:text="Emisor:"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+            <TextView
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:layout_gravity="right|center_vertical"
+                android:textSize="15sp"
+                android:textColor="@color/colorBlack"
+                android:text="Receptor:"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+            <TextView
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:layout_gravity="right"
+                android:textSize="15sp"
+                android:textColor="@color/colorBlack"
+                android:text="Total:"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+            <TextView
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:layout_gravity="right"
+                android:textSize="15sp"
+                android:textColor="@color/colorBlack"
+                android:text="ID:"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+            <TextView
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:layout_gravity="right"
+                android:textSize="15sp"
+                android:textColor="@color/colorBlack"
+                android:text="Estatus:"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+            <TextView
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:layout_gravity="right"
+                android:textSize="15sp"
+                android:textColor="@color/colorBlack"
+                android:text="Estado:"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+        </LinearLayout>
+        <!-- Valores-->
+        <LinearLayout
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="5dp"
+            android:orientation="vertical"
+            android:layout_weight="5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/layout_vigente_text_emisor"
+                android:gravity="center_vertical"
+                android:fontFamily="sans-serif-light"
+                android:layout_gravity="center_vertical"
+                android:textSize="21sp"
+                android:textColor="@color/colorBlack"
+                android:text="SPC130227L99"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+            <TextView
+                android:id="@+id/layout_vigente_text_receptor"
+                android:gravity="center_vertical"
+                android:fontFamily="sans-serif-light"
+                android:layout_gravity="center_vertical"
+                android:textSize="21sp"
+                android:textColor="@color/colorBlack"
+                android:text="GUMR920202RT1"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+            <TextView
+                android:id="@+id/layout_vigente_text_total"
+                android:gravity="center_vertical"
+                android:fontFamily="sans-serif-light"
+                android:layout_gravity="center_vertical"
+                android:textSize="19sp"
+                android:textColor="@color/colorBlack"
+                android:text="$ 6312.590000"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+            <TextView
+                android:id="@+id/layout_vigente_text_id"
+                android:gravity="center_vertical"
+                android:fontFamily="sans-serif-light"
+                android:layout_gravity="center_vertical"
+                android:textSize="15sp"
+                android:textColor="@color/colorBlack"
+                android:text="e30e3575-5d28-4f36-9bbc-33b80d81646a"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+            <TextView
+                android:id="@+id/layout_vigente_text_estatus"
+                android:gravity="center_vertical"
+                android:fontFamily="sans-serif-light"
+                android:layout_gravity="center_vertical"
+                android:textSize="15sp"
+                android:textColor="@color/colorBlack"
+                android:text="S - Comprobante obtenido satisfactoriamente."
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+            <TextView
+                android:id="@+id/layout_vigente_text_estado"
+                android:gravity="center_vertical"
+                android:fontFamily="sans-serif-light"
+                android:layout_gravity="center_vertical"
+                android:textSize="18sp"
+                android:textColor="@color/colorBlack"
+                android:text="Vigente"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp"
+        android:alpha=".15"
+        android:background="@color/colorBlack"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+    <LinearLayout
+        android:alpha=".85"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_gravity="center"
+                android:src="@mipmap/icono_borra"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_gravity="center"
+                android:src="@mipmap/icono_actualizar"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_gravity="center"
+                android:src="@mipmap/icono_compartir"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_vigente_image_aceptar"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_gravity="center"
+                android:src="@mipmap/icono_aceptar"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+        </LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>

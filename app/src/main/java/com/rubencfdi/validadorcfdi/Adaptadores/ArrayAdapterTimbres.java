@@ -68,11 +68,11 @@ public class ArrayAdapterTimbres extends ArrayAdapter<Timbre> {
             public void onClick(View v) {
                 DialogoLeyendoFactura dialogoLeyendoFactura = new DialogoLeyendoFactura();
                 dialogoLeyendoFactura.setMainActivity(mainActivity);
+                dialogoLeyendoFactura.setTimbre(getItem(position));
                 FragmentTransaction transaction = mainActivity.getSupportFragmentManager().beginTransaction();
                 transaction.add(dialogoLeyendoFactura, "dialogo_leyendo_factura");
                 transaction.commitAllowingStateLoss();
-                dialogoLeyendoFactura.setTimbre(getItem(position));
-                dialogoLeyendoFactura.mostrarTimbre(Timbre.VALIDO);
+
             }
         });
     }

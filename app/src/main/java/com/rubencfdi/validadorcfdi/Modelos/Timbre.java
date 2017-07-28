@@ -29,6 +29,7 @@ public class Timbre {
     private String mensaje;
     private String fechaVerificacion;
     private String estado;
+    private String cadenaQR;
 
     public static final String VIGENTE = "Vigente";
 
@@ -43,6 +44,7 @@ public class Timbre {
     public static final String LLAVE_JSON_ESTATUS = "estatus";
     public static final String LLAVE_JSON_ESTADO = "estado";
     public static final String LLAVE_JSON_FECHA_VERIFICACION = "fechaVerificacion";
+    //public static final String LLAVE_JSON_CADENA_QR = "cadenaQR";
 
     public Timbre()
     {}
@@ -71,7 +73,7 @@ public class Timbre {
         }
     }
 
-    public Timbre(int id, String uuid, String rfcReceptor, String rfcEmisor, String monto, int estatus, String mensaje, String fechaVerificacion, String estado)
+    public Timbre(int id, String uuid, String rfcReceptor, String rfcEmisor, String monto, int estatus, String mensaje, String fechaVerificacion, String estado, String cadenaQR)
     {
         this.id = id;
         this.uuid = uuid;
@@ -82,6 +84,7 @@ public class Timbre {
         this.mensaje = mensaje;
         this.fechaVerificacion = fechaVerificacion;
         this.estado = estado;
+        this.cadenaQR = cadenaQR;
     }
 
     public String getUuid() {
@@ -154,5 +157,13 @@ public class Timbre {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getCadenaQR() {
+        return cadenaQR;
+    }
+
+    public void setCadenaQR(String cadenaQR) {
+        this.cadenaQR = cadenaQR;
     }
 }

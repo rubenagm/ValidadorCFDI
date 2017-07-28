@@ -23,8 +23,8 @@ public class Peticion {
     public static final String URL_PETICION_SERVIDOR = "http://192.168.100.6/WebServiceValidacionFactura/validacion.php";
 
     public interface ValidacionFactura {
-        void facturaValida(String json);
-        void facturaInvalida(String json);
+        void facturaValida(String json, String qr);
+        void facturaInvalida(String json, String qr);
         void error();
     }
 
@@ -37,9 +37,9 @@ public class Peticion {
 
                         //Si la factura fue generada correctamente
                         if (true)
-                            validacionFactura.facturaValida(response);
+                            validacionFactura.facturaValida(response, qr);
                         else
-                            validacionFactura.facturaInvalida(response);
+                            validacionFactura.facturaInvalida(response, qr);
 
                     }
                 },
