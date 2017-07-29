@@ -5,8 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
 import com.rubencfdi.validadorcfdi.Modelos.Timbre;
 
 import java.util.ArrayList;
@@ -31,10 +29,9 @@ public class BaseDatos extends SQLiteOpenHelper {
 
     }
 
-    public long insertarTimbre(Timbre timbre)
-    {
+    public long insertarTimbre(Timbre timbre) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
+        ContentValues contentValues   = new ContentValues();
 
         contentValues.put("UUID", timbre.getUuid());
         contentValues.put("rfcEmisor", timbre.getRfcEmisor());
@@ -47,20 +44,17 @@ public class BaseDatos extends SQLiteOpenHelper {
         contentValues.put("CadenaQR", timbre.getCadenaQR());
 
         long id = sqLiteDatabase.insert("Timbre", null, contentValues);
-        Log.i(Querys.TAG_INSERTAR, "Se insertado un timbre");
 
         return id;
     }
 
-    public ArrayList<Timbre> consultarTimbres()
-    {
-        ArrayList<Timbre> timbres = new ArrayList<>();
+    public ArrayList<Timbre> consultarTimbres() {
+        ArrayList<Timbre> timbres     = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery(Querys.SELECT_TIMBRE, null);
+        Cursor cursor                 = sqLiteDatabase.rawQuery(Querys.SELECT_TIMBRE, null);
         cursor.moveToFirst();
 
-        while (!cursor.isAfterLast())
-        {
+        while (!cursor.isAfterLast()) {
             timbres.add(new Timbre(
                     cursor.getInt(cursor.getColumnIndex("Id")),
                     cursor.getString(cursor.getColumnIndex("UUID")),
@@ -80,8 +74,7 @@ public class BaseDatos extends SQLiteOpenHelper {
         return timbres;
     }
 
-    public Timbre consultarTimbre(int id)
-    {
+    public Timbre consultarTimbre(int id) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(Querys.SELECT_TIMBRE + " WHERE Id = " + id, null);
         cursor.moveToFirst();
@@ -96,8 +89,14 @@ public class BaseDatos extends SQLiteOpenHelper {
                 cursor.getString(cursor.getColumnIndex("FechaVerificacion")),
                 cursor.getString(cursor.getColumnIndex("Estado")),
                 cursor.getString(cursor.getColumnIndex("CadenaQR")));
+
         cursor.close();
 
         return timbre;
+    }
+
+    public void borrarTimbre(Timbre timbre) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.delete("Timbre", "Id = " + timbre.getId(), null);
     }
 }
