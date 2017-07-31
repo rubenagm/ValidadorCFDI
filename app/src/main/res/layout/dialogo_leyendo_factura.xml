@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/dialogo_leyendo_factura_principal"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -25,6 +26,12 @@
             android:visibility="gone"
             android:id="@+id/dialogo_leyendo_factura_sin_respuesta"
             layout="@layout/layout_sin_respuesta"
+            />
+        <!-- Cuando se comparte se mostrará este layout -->
+        <include
+            android:visibility="gone"
+            android:id="@+id/dialogo_leyendo_factura_mensaje_compartir"
+            layout="@layout/layout_mensaje_compartir"
             />
     </LinearLayout>
 

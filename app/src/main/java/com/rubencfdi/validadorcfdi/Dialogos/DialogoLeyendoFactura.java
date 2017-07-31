@@ -2,6 +2,9 @@ package com.rubencfdi.validadorcfdi.Dialogos;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -15,8 +18,13 @@ import android.widget.TextView;
 import com.rubencfdi.validadorcfdi.Activitys.MainActivity;
 import com.rubencfdi.validadorcfdi.BaseDatos.BaseDatos;
 import com.rubencfdi.validadorcfdi.Conexion.Peticion;
+import com.rubencfdi.validadorcfdi.Librerias.Compartir;
 import com.rubencfdi.validadorcfdi.Modelos.Timbre;
 import com.rubencfdi.validadorcfdi.R;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 /**
  * Created by Ruben on 06/06/2017
@@ -118,24 +126,38 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
                         .show();
             }
         });
+
+        linearLayoutCompartir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                (view.findViewById(R.id.dialogo_leyendo_factura_mensaje_compartir)).setVisibility(View.VISIBLE);
+                (view.findViewById(R.id.layout_vigente_linear_botones_compartir)).setVisibility(View.GONE);
+
+                Compartir.compartirView(mainActivity,
+                        view.findViewById(R.id.dialogo_leyendo_factura_principal));
+
+                (view.findViewById(R.id.dialogo_leyendo_factura_mensaje_compartir)).setVisibility(View.GONE);
+                (view.findViewById(R.id.layout_vigente_linear_botones_compartir)).setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private void inicializarObjetos() {
-        textViewCancelar          = (TextView) view.findViewById(R.id.dialogo_leyendo_factura_text_cancelar);
-        viewLeyendo               = view.findViewById(R.id.dialogo_leyendo_factura_leyendo);
-        viewTimbre                = view.findViewById(R.id.dialogo_leyendo_factura_timbre);
-        viewSinRespuesta          = view.findViewById(R.id.dialogo_leyendo_factura_sin_respuesta);
-        textViewEmisor            = (TextView) view.findViewById(R.id.layout_vigente_text_emisor);
-        textViewReceptor          = (TextView) view.findViewById(R.id.layout_vigente_text_receptor);
-        textViewTotal             = (TextView) view.findViewById(R.id.layout_vigente_text_total);
-        textViewId                = (TextView) view.findViewById(R.id.layout_vigente_text_id);
-        textViewEstado            = (TextView) view.findViewById(R.id.layout_vigente_text_estado);
-        textViewEstatus           = (TextView) view.findViewById(R.id.layout_vigente_text_estatus);
+        textViewCancelar = (TextView) view.findViewById(R.id.dialogo_leyendo_factura_text_cancelar);
+        viewLeyendo = view.findViewById(R.id.dialogo_leyendo_factura_leyendo);
+        viewTimbre = view.findViewById(R.id.dialogo_leyendo_factura_timbre);
+        viewSinRespuesta = view.findViewById(R.id.dialogo_leyendo_factura_sin_respuesta);
+        textViewEmisor = (TextView) view.findViewById(R.id.layout_vigente_text_emisor);
+        textViewReceptor = (TextView) view.findViewById(R.id.layout_vigente_text_receptor);
+        textViewTotal = (TextView) view.findViewById(R.id.layout_vigente_text_total);
+        textViewId = (TextView) view.findViewById(R.id.layout_vigente_text_id);
+        textViewEstado = (TextView) view.findViewById(R.id.layout_vigente_text_estado);
+        textViewEstatus = (TextView) view.findViewById(R.id.layout_vigente_text_estatus);
         textViewFechaVerificacion = (TextView) view.findViewById(R.id.layout_vigente_text_fecha_verificacion);
-        linearLayoutAceptar       = (LinearLayout) view.findViewById(R.id.layout_vigente_layout_aceptar);
-        linearLayoutRefrescar     = (LinearLayout) view.findViewById(R.id.layout_vigente_layout_refrescar);
-        linearLayoutBorrar        = (LinearLayout) view.findViewById(R.id.layout_vigente_layout_borrar);
-        linearLayoutCompartir     = (LinearLayout) view.findViewById(R.id.layout_vigente_layout_compartir);
+        linearLayoutAceptar = (LinearLayout) view.findViewById(R.id.layout_vigente_layout_aceptar);
+        linearLayoutRefrescar = (LinearLayout) view.findViewById(R.id.layout_vigente_layout_refrescar);
+        linearLayoutBorrar = (LinearLayout) view.findViewById(R.id.layout_vigente_layout_borrar);
+        linearLayoutCompartir = (LinearLayout) view.findViewById(R.id.layout_vigente_layout_compartir);
     }
 
     public void setCadenaQR(String cadenaQR) {
@@ -171,4 +193,5 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
     public void setTimbre(Timbre timbre) {
         this.timbre = timbre;
     }
+
 }

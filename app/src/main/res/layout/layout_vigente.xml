@@ -189,6 +189,7 @@ android:layout_height="wrap_content">
         android:layout_width="match_parent"
         android:layout_height="1dp" />
     <LinearLayout
+        android:id="@+id/layout_vigente_linear_botones_compartir"
         android:alpha=".8"
         android:layout_marginBottom="20dp"
         android:orientation="horizontal"
