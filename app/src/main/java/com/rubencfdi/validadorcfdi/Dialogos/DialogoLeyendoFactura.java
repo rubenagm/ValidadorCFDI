@@ -140,6 +140,15 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
                 (view.findViewById(R.id.layout_vigente_linear_botones_compartir)).setVisibility(View.VISIBLE);
             }
         });
+
+        linearLayoutRefrescar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewLeyendo.setVisibility(View.VISIBLE);
+                viewTimbre.setVisibility(View.GONE);
+                Peticion.validarFactura(timbre.getCadenaQR(), DialogoLeyendoFactura.this, mainActivity);
+            }
+        });
     }
 
     private void inicializarObjetos() {
@@ -175,7 +184,12 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
         timbre.setCadenaQR(qr);
         mostrarTimbre();
         BaseDatos baseDatos = new BaseDatos(mainActivity);
-        baseDatos.insertarTimbre(timbre);
+
+        if (baseDatos.existeTimbre(timbre))
+            baseDatos.actualizarTimbre(timbre);
+        else
+            baseDatos.insertarTimbre(timbre);
+
         mainActivity.refrescarLista();
     }
 

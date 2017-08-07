@@ -51,7 +51,7 @@ public class BaseDatos extends SQLiteOpenHelper {
     public ArrayList<Timbre> consultarTimbres() {
         ArrayList<Timbre> timbres     = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor cursor                 = sqLiteDatabase.rawQuery(Querys.SELECT_TIMBRE, null);
+        Cursor cursor                 = sqLiteDatabase.rawQuery(Querys.SELECT_TIMBRE_ORDER, null);
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
@@ -98,5 +98,37 @@ public class BaseDatos extends SQLiteOpenHelper {
     public void borrarTimbre(Timbre timbre) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         sqLiteDatabase.delete("Timbre", "Id = " + timbre.getId(), null);
+    }
+
+    public boolean existeTimbre(Timbre timbre) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        boolean bandera = false;
+
+        Cursor cursor = sqLiteDatabase.rawQuery(Querys.SELECT_TIMBRE + " WHERE CadenaQr = '" + timbre.getCadenaQR() + "'", null);
+        cursor.moveToFirst();
+
+        if (cursor.getCount() > 0)
+            bandera = true;
+
+        cursor.close();
+
+        return bandera;
+    }
+
+    public void actualizarTimbre(Timbre timbre) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues contentValues   = new ContentValues();
+
+        contentValues.put("UUID", timbre.getUuid());
+        contentValues.put("rfcEmisor", timbre.getRfcEmisor());
+        contentValues.put("rfcReceptor", timbre.getRfcReceptor());
+        contentValues.put("Monto", timbre.getMonto());
+        contentValues.put("Estatus", timbre.getEstatus());
+        contentValues.put("Mensaje", timbre.getMensaje());
+        contentValues.put("FechaVerificacion", timbre.getFechaVerificacion());
+        contentValues.put("Estado", timbre.getEstado());
+        contentValues.put("CadenaQR", timbre.getCadenaQR());
+
+        sqLiteDatabase.update("Timbre", contentValues, "Id = " + timbre.getId(), null);
     }
 }

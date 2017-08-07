@@ -21,12 +21,12 @@ import com.rubencfdi.validadorcfdi.R;
 
 public class ActivityCamara extends AppCompatActivity implements SurfaceHolder.Callback, Detector.Processor<Barcode> {
 
-    private SurfaceView surfaceView;
     private AsyncTaskCamara asyncTaskCamara;
     private ImageView imageViewFlechaDerecha;
     public TextView textViewMensajeError;
     private RelativeLayout relativeLayoutVertical;
     private RelativeLayout relativeLayoutHorizontal;
+    private boolean mostrarError = true;
 
     public static final String CODIGO_ENVIAR_QR = "qr";
 
@@ -50,8 +50,7 @@ public class ActivityCamara extends AppCompatActivity implements SurfaceHolder.C
     }
 
     private void inicializarObjetos() {
-        surfaceView = (SurfaceView) findViewById(R.id.fragment_camara_surface_camara);
-        surfaceView.getHolder().addCallback(this);
+        ((SurfaceView) findViewById(R.id.fragment_camara_surface_camara)).getHolder().addCallback(this);
         imageViewFlechaDerecha = (ImageView) findViewById(R.id.fragment_camara_image_flecha_derecha);
         textViewMensajeError = (TextView) findViewById(R.id.activity_camara_text_mensaje_error);
         relativeLayoutHorizontal = (RelativeLayout) findViewById(R.id.activity_camara_linear_linea_horizontal);
@@ -102,42 +101,47 @@ public class ActivityCamara extends AppCompatActivity implements SurfaceHolder.C
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             } else {
-                textViewMensajeError.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        textViewMensajeError.setText("No es un código QR de factura");
-                        textViewMensajeError.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                textViewMensajeError.setText("");
-                            }
-                        }, 3000);
-                    }
-                });
-                relativeLayoutVertical.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        relativeLayoutVertical.setBackgroundResource(R.color.colorRojo);
-                        relativeLayoutVertical.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                relativeLayoutVertical.setBackgroundResource(R.color.colorWhite);
-                            }
-                        }, 3000);
-                    }
-                });
-                relativeLayoutHorizontal.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        relativeLayoutHorizontal.setBackgroundResource(R.color.colorRojo);
-                        relativeLayoutHorizontal.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                relativeLayoutHorizontal.setBackgroundResource(R.color.colorWhite);
-                            }
-                        }, 3000);
-                    }
-                });
+
+                if (mostrarError) {
+                    mostrarError = false;
+                    textViewMensajeError.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            textViewMensajeError.setText("No es un código QR de factura");
+                            textViewMensajeError.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    textViewMensajeError.setText("");
+                                }
+                            }, 3000);
+                        }
+                    });
+                    relativeLayoutVertical.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            relativeLayoutVertical.setBackgroundResource(R.color.colorRojo);
+                            relativeLayoutVertical.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    relativeLayoutVertical.setBackgroundResource(R.color.colorWhite);
+                                }
+                            }, 3000);
+                        }
+                    });
+                    relativeLayoutHorizontal.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            relativeLayoutHorizontal.setBackgroundResource(R.color.colorRojo);
+                            relativeLayoutHorizontal.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    relativeLayoutHorizontal.setBackgroundResource(R.color.colorWhite);
+                                    mostrarError = true;
+                                }
+                            }, 3000);
+                        }
+                    });
+                }
             }
         }
     }

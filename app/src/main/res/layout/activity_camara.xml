@@ -80,7 +80,6 @@
         </RelativeLayout>
     </LinearLayout>
     <TextView
-        android:text="ALGO"
         android:id="@+id/activity_camara_text_mensaje_error"
         android:fontFamily="sans-serif-light"
         android:textColor="@color/colorWhite"
