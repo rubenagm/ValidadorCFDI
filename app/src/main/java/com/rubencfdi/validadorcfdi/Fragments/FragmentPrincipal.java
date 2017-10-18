@@ -66,6 +66,7 @@ public class FragmentPrincipal extends Fragment {
         timbres = baseDatos.consultarTimbres();
         textViewConsultados.setText(Integer.toString(timbres.size()));
         ArrayAdapterTimbres arrayAdapterTimbres = new ArrayAdapterTimbres(mainActivity, timbres);
+        listViewTimbres.setDivider(null);
         listViewTimbres.setAdapter(arrayAdapterTimbres);
 
         //Se limpian los datos de pantalla

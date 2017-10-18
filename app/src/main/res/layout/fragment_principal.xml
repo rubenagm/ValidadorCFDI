@@ -148,9 +148,9 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:layout_alignParentBottom="true"
-                    android:alpha=".25"
+                    android:alpha=".15"
                     android:background="@color/colorBlack" />
             </RelativeLayout>
             <!-- Contiene la lista de los timbres validados-->

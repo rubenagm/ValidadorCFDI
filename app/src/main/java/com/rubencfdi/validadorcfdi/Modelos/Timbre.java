@@ -9,6 +9,8 @@ import com.rubencfdi.validadorcfdi.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.zip.DeflaterOutputStream;
+
 /**
  * Created by Ruben on 27/04/2017
  */
@@ -112,7 +114,16 @@ public class Timbre {
     }
 
     public String getMonto() {
-        return monto;
+
+        String montoString = "";
+
+        try {
+            montoString = String.format("%,.2f", Double.parseDouble(monto));
+        }
+        catch (NumberFormatException e)
+        {}
+
+        return montoString;
     }
 
     public void setMonto(String monto) {

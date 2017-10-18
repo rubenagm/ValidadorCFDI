@@ -19,6 +19,7 @@ import com.rubencfdi.validadorcfdi.Activitys.MainActivity;
 import com.rubencfdi.validadorcfdi.BaseDatos.BaseDatos;
 import com.rubencfdi.validadorcfdi.Conexion.Peticion;
 import com.rubencfdi.validadorcfdi.Librerias.Compartir;
+import com.rubencfdi.validadorcfdi.Librerias.Fecha;
 import com.rubencfdi.validadorcfdi.Modelos.Timbre;
 import com.rubencfdi.validadorcfdi.R;
 
@@ -78,11 +79,12 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
         if (timbre != null) {
             textViewEmisor.setText(timbre.getRfcEmisor());
             textViewReceptor.setText(timbre.getRfcReceptor());
-            textViewTotal.setText(timbre.getMonto());
+            textViewTotal.setText("$" + timbre.getMonto());
             textViewId.setText(timbre.getUuid());
             textViewEstado.setText(timbre.getEstado());
             textViewEstatus.setText(timbre.getMensaje());
-            textViewFechaVerificacion.setText(timbre.getFechaVerificacion());
+            textViewFechaVerificacion.setText(
+                    "Verificado: " + Fecha.fechaDiaSemana(timbre.getFechaVerificacion()));
         }
     }
 
