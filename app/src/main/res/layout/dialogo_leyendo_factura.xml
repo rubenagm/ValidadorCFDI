@@ -33,6 +33,12 @@
             android:id="@+id/dialogo_leyendo_factura_mensaje_compartir"
             layout="@layout/layout_mensaje_compartir"
             />
+        <!-- Cuando no hay conexión a internet -->
+        <include
+            android:visibility="gone"
+            android:id="@+id/dialogo_leyendo_factura_mensaje_sin_internet"
+            layout="@layout/layout_sin_conexion"
+            />
     </LinearLayout>
 
 </RelativeLayout>

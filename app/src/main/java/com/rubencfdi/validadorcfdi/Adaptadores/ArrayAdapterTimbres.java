@@ -50,7 +50,7 @@ public class ArrayAdapterTimbres extends ArrayAdapter<Timbre> {
     private void generarItem(final int position) {
         ((TextView) view.findViewById(R.id.item_timbre_text_rfc_emisor)).setText(getItem(position).getRfcEmisor());
         ((TextView) view.findViewById(R.id.item_timbre_text_rfc_receptor)).setText(getItem(position).getRfcReceptor());
-        ((TextView) view.findViewById(R.id.item_timbre_text_monto)).setText("$" + getItem(position).getMonto());
+        ((TextView) view.findViewById(R.id.item_timbre_text_monto)).setText("$" + getItem(position).getMontoString());
 
         if (getItem(position).getEstatus() == 1) {
             ((TextView) view.findViewById(R.id.item_timbre_text_valido)).setText("Vigente");

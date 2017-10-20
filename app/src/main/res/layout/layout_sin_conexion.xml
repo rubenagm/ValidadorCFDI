@@ -9,7 +9,7 @@
         android:layout_gravity="center_horizontal"
         android:fontFamily="sans-serif-light"
         android:textSize="24sp"
-        android:text="Sin Respuesta"
+        android:text="Sin conexión"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <ImageView
@@ -18,7 +18,7 @@
         android:layout_height="70dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="5dp"
-        android:src="@mipmap/icono_sin_conexion_servidor" />
+        android:src="@mipmap/icono_sin_wifi" />
     <TextView
         android:textSize="13sp"
         android:layout_marginTop="5dp"
@@ -28,7 +28,7 @@
         android:gravity="center"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:text="No se ha recibido respuesta por parte del servidor, esto puede ser ocacionado por una falla en tu conexión, asegurate de tener conexión a internet."
+        android:text="Parece que no hay una conexión a internet activa, verifica tu conexión y vuelve a intentar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <LinearLayout
@@ -40,18 +40,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/dialogo_layout_sin_respuesta_cancelar"
-            android:textSize="15sp"
-            android:textColor="@color/wallet_holo_blue_light"
-            android:text="CANCELAR"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/dialogo_layout_sin_respuesta_volver_intentar"
+            android:id="@+id/dialogo_layout_sin_conexion_aceptar"
             android:layout_marginLeft="30dp"
             android:textSize="15sp"
             android:textColor="@color/wallet_holo_blue_light"
-            android:text="VOLVER A INTENTAR"
+            android:text="ACEPTAR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

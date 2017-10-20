@@ -98,6 +98,7 @@ public class BaseDatos extends SQLiteOpenHelper {
     public void borrarTimbre(Timbre timbre) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         sqLiteDatabase.delete("Timbre", "Id = " + timbre.getId(), null);
+        sqLiteDatabase.close();
     }
 
     public boolean existeTimbre(Timbre timbre) {

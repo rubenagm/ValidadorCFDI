@@ -113,7 +113,12 @@ public class Timbre {
         this.rfcEmisor = rfcEmisor;
     }
 
-    public String getMonto() {
+    public String getMonto()
+    {
+        return this.monto;
+    }
+
+    public String getMontoString() {
 
         String montoString = "";
 

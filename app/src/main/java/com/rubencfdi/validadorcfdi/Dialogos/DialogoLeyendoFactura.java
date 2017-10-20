@@ -19,6 +19,7 @@ import com.rubencfdi.validadorcfdi.Activitys.MainActivity;
 import com.rubencfdi.validadorcfdi.BaseDatos.BaseDatos;
 import com.rubencfdi.validadorcfdi.Conexion.Peticion;
 import com.rubencfdi.validadorcfdi.Librerias.Compartir;
+import com.rubencfdi.validadorcfdi.Librerias.Conexion;
 import com.rubencfdi.validadorcfdi.Librerias.Fecha;
 import com.rubencfdi.validadorcfdi.Modelos.Timbre;
 import com.rubencfdi.validadorcfdi.R;
@@ -40,6 +41,7 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
     private View viewLeyendo;
     private View viewTimbre;
     private View viewSinRespuesta;
+    private View viewSinConexion;
     private Timbre timbre;
 
     private TextView textViewEmisor;
@@ -49,6 +51,9 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
     private TextView textViewEstado;
     private TextView textViewEstatus;
     private TextView textViewFechaVerificacion;
+    private TextView textViewSinConexionAceptar;
+    private TextView textViewSinRespuestaCancelar;
+    private TextView textViewSinRespuestaVolverIntentar;
 
     private LinearLayout linearLayoutAceptar;
     private LinearLayout linearLayoutRefrescar;
@@ -64,7 +69,12 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
         inicializarEventos();
 
         if (cadenaQR != null)
-            Peticion.validarFactura(cadenaQR, this, mainActivity);
+            if (Conexion.hayInternet(mainActivity))
+                Peticion.validarFactura(cadenaQR, this, mainActivity);
+            else {
+                viewLeyendo.setVisibility(View.GONE);
+                viewSinConexion.setVisibility(View.VISIBLE);
+            }
         else if (timbre != null)
             mostrarTimbre();
 
@@ -79,7 +89,7 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
         if (timbre != null) {
             textViewEmisor.setText(timbre.getRfcEmisor());
             textViewReceptor.setText(timbre.getRfcReceptor());
-            textViewTotal.setText("$" + timbre.getMonto());
+            textViewTotal.setText("$" + timbre.getMontoString());
             textViewId.setText(timbre.getUuid());
             textViewEstado.setText(timbre.getEstado());
             textViewEstatus.setText(timbre.getMensaje());
@@ -151,6 +161,32 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
                 Peticion.validarFactura(timbre.getCadenaQR(), DialogoLeyendoFactura.this, mainActivity);
             }
         });
+
+        textViewSinConexionAceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDialog().dismiss();
+            }
+        });
+
+        textViewSinRespuestaCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDialog().dismiss();
+            }
+        });
+
+        textViewSinRespuestaVolverIntentar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewSinRespuesta.setVisibility(View.GONE);
+                viewLeyendo.setVisibility(View.VISIBLE);
+                Peticion.validarFactura(cadenaQR,DialogoLeyendoFactura.this, mainActivity);
+
+            }
+        });
+
+
     }
 
     private void inicializarObjetos() {
@@ -158,6 +194,7 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
         viewLeyendo = view.findViewById(R.id.dialogo_leyendo_factura_leyendo);
         viewTimbre = view.findViewById(R.id.dialogo_leyendo_factura_timbre);
         viewSinRespuesta = view.findViewById(R.id.dialogo_leyendo_factura_sin_respuesta);
+        viewSinConexion = view.findViewById(R.id.dialogo_leyendo_factura_mensaje_sin_internet);
         textViewEmisor = (TextView) view.findViewById(R.id.layout_vigente_text_emisor);
         textViewReceptor = (TextView) view.findViewById(R.id.layout_vigente_text_receptor);
         textViewTotal = (TextView) view.findViewById(R.id.layout_vigente_text_total);
@@ -165,6 +202,9 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
         textViewEstado = (TextView) view.findViewById(R.id.layout_vigente_text_estado);
         textViewEstatus = (TextView) view.findViewById(R.id.layout_vigente_text_estatus);
         textViewFechaVerificacion = (TextView) view.findViewById(R.id.layout_vigente_text_fecha_verificacion);
+        textViewSinConexionAceptar = (TextView) view.findViewById(R.id.dialogo_layout_sin_conexion_aceptar);
+        textViewSinRespuestaCancelar = (TextView) view.findViewById(R.id.dialogo_layout_sin_respuesta_cancelar);
+        textViewSinRespuestaVolverIntentar = (TextView) view.findViewById(R.id.dialogo_layout_sin_respuesta_volver_intentar);
         linearLayoutAceptar = (LinearLayout) view.findViewById(R.id.layout_vigente_layout_aceptar);
         linearLayoutRefrescar = (LinearLayout) view.findViewById(R.id.layout_vigente_layout_refrescar);
         linearLayoutBorrar = (LinearLayout) view.findViewById(R.id.layout_vigente_layout_borrar);
@@ -205,6 +245,7 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
         viewLeyendo.setVisibility(View.GONE);
         viewSinRespuesta.setVisibility(View.VISIBLE);
     }
+
 
     public void setTimbre(Timbre timbre) {
         this.timbre = timbre;
