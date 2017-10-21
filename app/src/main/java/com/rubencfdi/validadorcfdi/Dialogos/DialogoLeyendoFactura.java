@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.rubencfdi.validadorcfdi.Activitys.MainActivity;
@@ -54,6 +55,8 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
     private TextView textViewSinConexionAceptar;
     private TextView textViewSinRespuestaCancelar;
     private TextView textViewSinRespuestaVolverIntentar;
+    private TextView textViewTextoValido;
+    private ImageView imageViewIconoValido;
 
     private LinearLayout linearLayoutAceptar;
     private LinearLayout linearLayoutRefrescar;
@@ -95,6 +98,11 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
             textViewEstatus.setText(timbre.getMensaje());
             textViewFechaVerificacion.setText(
                     "Verificado: " + Fecha.fechaDiaSemana(timbre.getFechaVerificacion()));
+
+            if (timbre.getEstatus() == Timbre.INVALIDO) {
+                textViewTextoValido.setText("Inválido");
+                imageViewIconoValido.setImageResource(R.mipmap.icono_invalido);
+            }
         }
     }
 
@@ -185,8 +193,6 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
 
             }
         });
-
-
     }
 
     private void inicializarObjetos() {
@@ -209,6 +215,8 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
         linearLayoutRefrescar = (LinearLayout) view.findViewById(R.id.layout_vigente_layout_refrescar);
         linearLayoutBorrar = (LinearLayout) view.findViewById(R.id.layout_vigente_layout_borrar);
         linearLayoutCompartir = (LinearLayout) view.findViewById(R.id.layout_vigente_layout_compartir);
+        imageViewIconoValido = (ImageView) view.findViewById(R.id.layout_vigente_icono_vigente);
+        textViewTextoValido = (TextView) view.findViewById(R.id.layout_vigente_texto_vigente);
     }
 
     public void setCadenaQR(String cadenaQR) {
@@ -237,7 +245,17 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
 
     @Override
     public void facturaInvalida(String json, String qr) {
+        timbre = new Timbre(json);
+        timbre.setCadenaQR(qr);
+        mostrarTimbre();
+        BaseDatos baseDatos = new BaseDatos(mainActivity);
 
+        if (baseDatos.existeTimbre(timbre))
+            baseDatos.actualizarTimbre(timbre);
+        else
+            baseDatos.insertarTimbre(timbre);
+
+        mainActivity.refrescarLista();
     }
 
     @Override

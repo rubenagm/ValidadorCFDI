@@ -12,11 +12,13 @@ android:layout_height="wrap_content">
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
+            android:id="@+id/layout_vigente_icono_vigente"
             android:src="@mipmap/icono_valido"
             android:layout_width="35dp"
             android:layout_height="35dp" />
         <TextView
-            android:layout_marginLeft="20dp"
+            android:id="@+id/layout_vigente_texto_vigente"
+            android:layout_marginLeft="15dp"
             android:alpha=".87"
             android:textColor="@color/colorBlack"
             android:fontFamily="sans-serif-light"
@@ -44,7 +46,7 @@ android:layout_height="wrap_content">
         android:alpha=".15"
         android:background="@color/colorBlack"
         android:layout_width="match_parent"
-        android:layout_height="1dp" />
+        android:layout_height=".6dp" />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -186,7 +188,7 @@ android:layout_height="wrap_content">
         android:alpha=".15"
         android:background="@color/colorBlack"
         android:layout_width="match_parent"
-        android:layout_height="1dp" />
+        android:layout_height="0.6dp" />
     <LinearLayout
         android:id="@+id/layout_vigente_linear_botones_compartir"
         android:alpha=".8"

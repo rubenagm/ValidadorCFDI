@@ -35,11 +35,17 @@ public class Peticion {
                     public void onResponse(String response) {
                         Log.i("Peticion", response);
 
-                        //Si la factura fue generada correctamente
-                        if (true)
-                            validacionFactura.facturaValida(response, qr);
-                        else
-                            validacionFactura.facturaInvalida(response, qr);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+
+                            //Si la factura fue generada correctamente
+                            if (jsonObject.getBoolean("valida"))
+                                validacionFactura.facturaValida(response, qr);
+                            else
+                                validacionFactura.facturaInvalida(response, qr);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
                     }
                 },
