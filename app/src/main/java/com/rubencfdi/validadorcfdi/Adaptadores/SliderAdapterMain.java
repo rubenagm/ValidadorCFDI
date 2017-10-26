@@ -39,8 +39,8 @@ public class SliderAdapterMain extends FragmentStatePagerAdapter{
             }
             case 1 : {
                 fragmentAjustes = new FragmentAjustes()
-                        .setViewPager(viewPager);
-
+                        .setViewPager(viewPager)
+                        .setActivity(mainActivity);
                 return fragmentAjustes;
             }
 
