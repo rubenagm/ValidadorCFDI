@@ -52,6 +52,7 @@ public class SliderAdapterMain extends FragmentStatePagerAdapter{
         fragmentPrincipal.inicializarCamaraActivity();
     }
 
+
     @Override
     public int getCount() {
         return 2;

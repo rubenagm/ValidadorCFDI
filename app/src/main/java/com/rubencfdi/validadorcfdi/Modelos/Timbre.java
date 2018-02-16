@@ -125,7 +125,7 @@ public class Timbre {
         String montoString = "";
 
         try {
-            montoString = String.format("%.,2f", Double.parseDouble(monto));
+            montoString = String.format("%,.2f", Double.parseDouble(monto));
         }
         catch (NumberFormatException e)
         {}

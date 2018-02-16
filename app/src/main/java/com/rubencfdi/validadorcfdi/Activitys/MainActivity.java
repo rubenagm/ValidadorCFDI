@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private SliderAdapterMain sliderAdapterMain;
     public static final int ID_PERMISSION_CAMERA = 7637;
+    public static final int ID_PERMISSION_WRITE_EXTERNAL_STORAGE = 7492;
+    public ConexionEntreFunciones conexionEntreFunciones;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +88,12 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.ID_PERMISSION_CAMERA);
     }
 
+    public void requestPermissionStorage() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                MainActivity.ID_PERMISSION_WRITE_EXTERNAL_STORAGE);
+    }
+
     public void refrescarLista() {
         sliderAdapterMain.refrescarLista();
     }
@@ -106,12 +116,29 @@ public class MainActivity extends AppCompatActivity {
                             .create()
                             .show();
                 }
-                return;
+                break;
             }
+            case ID_PERMISSION_WRITE_EXTERNAL_STORAGE : {
 
-            // other 'case' lines to check for other
-            // permissions this app might request
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+
+                } else {
+
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("PERMISO STORAGE")
+                            .setMessage("Debes conceder el permiso para poder guardar la imagen y compartir el contenido de esta factura.")
+                            .create()
+                            .show();
+                }
+            }
         }
+    }
 
+
+
+    public interface ConexionEntreFunciones {
+        public void ejecucion();
     }
 }

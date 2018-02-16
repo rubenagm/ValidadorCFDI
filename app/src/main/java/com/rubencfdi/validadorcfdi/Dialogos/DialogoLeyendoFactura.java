@@ -1,13 +1,16 @@
 package com.rubencfdi.validadorcfdi.Dialogos;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -149,14 +152,12 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
         linearLayoutCompartir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                (view.findViewById(R.id.dialogo_leyendo_factura_mensaje_compartir)).setVisibility(View.VISIBLE);
-                (view.findViewById(R.id.layout_vigente_linear_botones_compartir)).setVisibility(View.GONE);
 
-                Compartir.compartirView(mainActivity,
-                        view.findViewById(R.id.dialogo_leyendo_factura_principal));
-
-                (view.findViewById(R.id.dialogo_leyendo_factura_mensaje_compartir)).setVisibility(View.GONE);
-                (view.findViewById(R.id.layout_vigente_linear_botones_compartir)).setVisibility(View.VISIBLE);
+                if (ContextCompat.checkSelfPermission(mainActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    compartirView();
+                } else {
+                    mainActivity.requestPermissionStorage();
+                }
             }
         });
 
@@ -192,6 +193,17 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
 
             }
         });
+    }
+
+    public void compartirView() {
+        (view.findViewById(R.id.dialogo_leyendo_factura_mensaje_compartir)).setVisibility(View.VISIBLE);
+        (view.findViewById(R.id.layout_vigente_linear_botones_compartir)).setVisibility(View.GONE);
+
+        Compartir.compartirView(mainActivity,
+                view.findViewById(R.id.dialogo_leyendo_factura_principal));
+
+        (view.findViewById(R.id.dialogo_leyendo_factura_mensaje_compartir)).setVisibility(View.GONE);
+        (view.findViewById(R.id.layout_vigente_linear_botones_compartir)).setVisibility(View.VISIBLE);
     }
 
     private void inicializarObjetos() {
