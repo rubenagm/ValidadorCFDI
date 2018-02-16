@@ -1,72 +1,110 @@
 package com.rubencfdi.validadorcfdi.Conexion;
 
 import android.app.Activity;
-import android.util.Log;
+import android.os.AsyncTask;
+import android.os.NetworkOnMainThreadException;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.rubencfdi.validadorcfdi.Librerias.Fecha;
+import com.rubencfdi.validadorcfdi.Modelos.Timbre;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapPrimitive;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpTransportSE;
+import org.xmlpull.v1.XmlPullParserException;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Ruben on 17/06/2017
  */
 
 public class Peticion {
-    public static final String URL_PETICION_SERVIDOR = "http://192.168.100.6:8080/WebServiceValidacionFactura/validacion.php";
+    private final static String URL = "https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc?singleWsdl";
+    private final static String METODO = "Consulta";
+    private final static String ACCION = "http://tempuri.org/IConsultaCFDIService/Consulta";
+    private final static String NAMESPACE = "http://tempuri.org/";
+
 
     public interface ValidacionFactura {
-        void facturaValida(String json, String qr);
-        void facturaInvalida(String json, String qr);
+        void facturaValida(Timbre timbre);
+        void facturaInvalida(Timbre timbre);
         void error();
     }
 
     public static void validarFactura (final String qr, final ValidacionFactura validacionFactura, Activity activity) {
-        StringRequest postRequest = new StringRequest(Request.Method.POST, URL_PETICION_SERVIDOR,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i("Peticion", response);
 
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
+        RequestAsyncTask requestAsyncTask = new RequestAsyncTask(qr, validacionFactura);
+        requestAsyncTask.execute();
+    }
 
-                            //Si la factura fue generada correctamente
-                            if (jsonObject.getBoolean("valida"))
-                                validacionFactura.facturaValida(response, qr);
-                            else
-                                validacionFactura.facturaInvalida(response, qr);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+    public static class RequestAsyncTask extends AsyncTask<Void, Void, String> {
 
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        validacionFactura.error();
-                    }
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<>();
-                // the POST parameters:
-                params.put("qr", qr);
+        private String qr;
+        private ValidacionFactura validacionFactura;
 
-                return params;
+        public RequestAsyncTask(String qr, ValidacionFactura validacionFactura) {
+            this.qr = qr;
+            this.validacionFactura = validacionFactura;
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            SoapObject soapObject = new SoapObject(NAMESPACE, METODO);
+            soapObject.addProperty("expresionImpresa", qr);
+
+            SoapSerializationEnvelope soapSerializationEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            soapSerializationEnvelope.dotNet = true;
+            soapSerializationEnvelope.setOutputSoapObject(soapObject);
+
+            HttpTransportSE httpTransportSE = new HttpTransportSE(URL);
+            try {
+                httpTransportSE.call(ACCION, soapSerializationEnvelope);
+
+                return soapSerializationEnvelope.bodyIn.toString();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (XmlPullParserException e) {
+                e.printStackTrace();
+            } catch (NetworkOnMainThreadException e) {
+                e.printStackTrace();
             }
-        };
-        Volley.newRequestQueue(activity).add(postRequest);
 
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            result = result.replace("ConsultaResponse{ConsultaResult=anyType{", "").replace("; }; }", "");
+
+            String[] list = qr.split("&");
+
+            Timbre timbre = new Timbre();
+            timbre.setCadenaQR(qr);
+            timbre.setRfcEmisor(list[0].replace("re=", "").replace("?", ""));
+            timbre.setRfcReceptor(list[1].replace("rr=", "").replace("?", ""));
+            timbre.setMonto(list[2].replace("tt=", ""));
+            timbre.setMensaje(result);
+            timbre.setUuid(list[3].replace("id=", ""));
+            timbre.setFechaVerificacion( new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+
+            if (result.contains("Estado=Vigente")) {
+                timbre.setEstatus(1);
+                timbre.setEstado("Vigente");
+                validacionFactura.facturaValida(timbre);
+            }
+            else {
+                timbre.setEstatus(2);
+                timbre.setEstado("Invalido");
+                validacionFactura.facturaInvalida(timbre);
+            }
+        }
     }
 }

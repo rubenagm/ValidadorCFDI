@@ -13,7 +13,7 @@ public class Fecha {
     public static String fechaDiaSemana(String fecha) {
         Calendar calendar = Calendar.getInstance();
         try {
-            calendar.setTime(new SimpleDateFormat("dd-MM-yyyy").parse(fecha));
+            calendar.setTime(new SimpleDateFormat("yyyy-MM-dd").parse(fecha));
         } catch (ParseException e) {
             return null;
         }

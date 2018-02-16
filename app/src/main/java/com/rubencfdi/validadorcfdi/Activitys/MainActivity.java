@@ -1,23 +1,31 @@
 package com.rubencfdi.validadorcfdi.Activitys;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
 import com.rubencfdi.validadorcfdi.Adaptadores.SliderAdapterMain;
+import com.rubencfdi.validadorcfdi.BaseDatos.BaseDatos;
 import com.rubencfdi.validadorcfdi.Dialogos.DialogoLeyendoFactura;
 import com.rubencfdi.validadorcfdi.Fragments.FragmentPrincipal;
+import com.rubencfdi.validadorcfdi.Modelos.Timbre;
 import com.rubencfdi.validadorcfdi.R;
 
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private SliderAdapterMain sliderAdapterMain;
-
+    public static final int ID_PERMISSION_CAMERA = 7637;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +78,40 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void requestPermissionCamera() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.CAMERA},
+                MainActivity.ID_PERMISSION_CAMERA);
+    }
+
     public void refrescarLista() {
         sliderAdapterMain.refrescarLista();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case ID_PERMISSION_CAMERA: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    sliderAdapterMain.inicializarCamaraActivity();
+
+                } else {
+
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("PERMISO CÁMARA")
+                            .setMessage("Debes conceder el permiso a la cámara para poder leer los códigos QR")
+                            .create()
+                            .show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+
     }
 }

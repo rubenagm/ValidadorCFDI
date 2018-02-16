@@ -50,9 +50,9 @@ public class ActivityCamara extends AppCompatActivity implements SurfaceHolder.C
     }
 
     private void inicializarObjetos() {
+        textViewMensajeError = (TextView) findViewById(R.id.activity_camara_text_mensaje_error);
         ((SurfaceView) findViewById(R.id.fragment_camara_surface_camara)).getHolder().addCallback(this);
         imageViewFlechaDerecha = (ImageView) findViewById(R.id.fragment_camara_image_flecha_derecha);
-        textViewMensajeError = (TextView) findViewById(R.id.activity_camara_text_mensaje_error);
         relativeLayoutHorizontal = (RelativeLayout) findViewById(R.id.activity_camara_linear_linea_horizontal);
         relativeLayoutVertical = (RelativeLayout) findViewById(R.id.activity_camara_linear_linea_vertical);
     }

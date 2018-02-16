@@ -7,7 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.rubencfdi.validadorcfdi.Modelos.Timbre;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Ruben on 20/05/2017
@@ -39,7 +41,7 @@ public class BaseDatos extends SQLiteOpenHelper {
         contentValues.put("Monto", timbre.getMonto());
         contentValues.put("Estatus", timbre.getEstatus());
         contentValues.put("Mensaje", timbre.getMensaje());
-        contentValues.put("FechaVerificacion", timbre.getFechaVerificacion());
+        contentValues.put("FechaVerificacion", System.currentTimeMillis());
         contentValues.put("Estado", timbre.getEstado());
         contentValues.put("CadenaQR", timbre.getCadenaQR());
 
@@ -55,6 +57,8 @@ public class BaseDatos extends SQLiteOpenHelper {
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
+            Date date = new Date(cursor.getLong(cursor.getColumnIndex("FechaVerificacion")));
+
             timbres.add(new Timbre(
                     cursor.getInt(cursor.getColumnIndex("Id")),
                     cursor.getString(cursor.getColumnIndex("UUID")),
@@ -63,7 +67,7 @@ public class BaseDatos extends SQLiteOpenHelper {
                     cursor.getString(cursor.getColumnIndex("Monto")),
                     cursor.getInt(cursor.getColumnIndex("Estatus")),
                     cursor.getString(cursor.getColumnIndex("Mensaje")),
-                    cursor.getString(cursor.getColumnIndex("FechaVerificacion")),
+                    (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date)),
                     cursor.getString(cursor.getColumnIndex("Estado")),
                     cursor.getString(cursor.getColumnIndex("CadenaQR"))));
 

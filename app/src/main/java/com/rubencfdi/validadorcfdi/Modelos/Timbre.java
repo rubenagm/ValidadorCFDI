@@ -43,7 +43,7 @@ public class Timbre {
     public static final String LLAVE_JSON_RECEPTOR = "rfcReceptor";
     public static final String LLAVE_JSON_TOTAL = "total";
     public static final String LLAVE_JSON_ID = "id";
-    public static final String LLAVE_JSON_ESTATUS = "estatus";
+    public static final String LLAVE_JSON_CODIGO_ESTATUS = "CodigoEstatus";
     public static final String LLAVE_JSON_ESTADO = "estado";
     public static final String LLAVE_JSON_FECHA_VERIFICACION = "fechaVerificacion";
     //public static final String LLAVE_JSON_CADENA_QR = "cadenaQR";
@@ -53,6 +53,7 @@ public class Timbre {
 
     public Timbre(String json)
     {
+        /*
         try {
             JSONObject jsonObject = new JSONObject(json);
 
@@ -73,6 +74,7 @@ public class Timbre {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        */
     }
 
     public Timbre(int id, String uuid, String rfcReceptor, String rfcEmisor, String monto, int estatus, String mensaje, String fechaVerificacion, String estado, String cadenaQR)
@@ -123,7 +125,7 @@ public class Timbre {
         String montoString = "";
 
         try {
-            montoString = String.format("%,.2f", Double.parseDouble(monto));
+            montoString = String.format("%.,2f", Double.parseDouble(monto));
         }
         catch (NumberFormatException e)
         {}

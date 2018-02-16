@@ -96,8 +96,7 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
             textViewId.setText(timbre.getUuid());
             textViewEstado.setText(timbre.getEstado());
             textViewEstatus.setText(timbre.getMensaje());
-            textViewFechaVerificacion.setText(
-                    "Verificado: " + Fecha.fechaDiaSemana(timbre.getFechaVerificacion()));
+            textViewFechaVerificacion.setText(Fecha.fechaDiaSemana(timbre.getFechaVerificacion()));
 
             if (timbre.getEstatus() == Timbre.INVALIDO) {
                 textViewTextoValido.setText("Inválido");
@@ -229,9 +228,8 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
     }
 
     @Override
-    public void facturaValida(String json, String qr) {
-        timbre = new Timbre(json);
-        timbre.setCadenaQR(qr);
+    public void facturaValida(Timbre timbre) {
+        this.timbre = timbre;
         mostrarTimbre();
         BaseDatos baseDatos = new BaseDatos(mainActivity);
 
@@ -244,9 +242,8 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
     }
 
     @Override
-    public void facturaInvalida(String json, String qr) {
-        timbre = new Timbre(json);
-        timbre.setCadenaQR(qr);
+    public void facturaInvalida(Timbre timbre) {
+        this.timbre = timbre;
         mostrarTimbre();
         BaseDatos baseDatos = new BaseDatos(mainActivity);
 

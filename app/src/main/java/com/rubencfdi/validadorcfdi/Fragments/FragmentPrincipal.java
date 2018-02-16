@@ -1,12 +1,16 @@
 package com.rubencfdi.validadorcfdi.Fragments;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,12 +104,19 @@ public class FragmentPrincipal extends Fragment {
         imageViewCamara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mainActivity, ActivityCamara.class);
-                mainActivity.overridePendingTransition(0, 0);
-                mainActivity.startActivityForResult(intent, ACTIVITY_CAMARA);
+                if (ContextCompat.checkSelfPermission(mainActivity, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                    inicializarCamaraActivity();
+                } else {
+                    mainActivity.requestPermissionCamera();
+                }
             }
         });
+    }
 
+    public void inicializarCamaraActivity() {
+        Intent intent = new Intent(mainActivity, ActivityCamara.class);
+        mainActivity.overridePendingTransition(0, 0);
+        mainActivity.startActivityForResult(intent, ACTIVITY_CAMARA);
     }
 
     private void inicializarObjetos() {
