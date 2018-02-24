@@ -1,16 +1,4 @@
 package com.rubencfdi.validadorcfdi.Modelos;
-
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import com.rubencfdi.validadorcfdi.R;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.zip.DeflaterOutputStream;
-
 /**
  * Created by Ruben on 27/04/2017
  */
@@ -33,49 +21,11 @@ public class Timbre {
     private String estado;
     private String cadenaQR;
 
-    public static final String VIGENTE = "Vigente";
-
     public static final int VALIDO = 1;
     public static final int INVALIDO = 2;
-    public static final int NO_DISPONIBLE = 3;
-
-    public static final String LLAVE_JSON_EMISOR = "rfcEmisor";
-    public static final String LLAVE_JSON_RECEPTOR = "rfcReceptor";
-    public static final String LLAVE_JSON_TOTAL = "total";
-    public static final String LLAVE_JSON_ID = "id";
-    public static final String LLAVE_JSON_CODIGO_ESTATUS = "CodigoEstatus";
-    public static final String LLAVE_JSON_ESTADO = "estado";
-    public static final String LLAVE_JSON_FECHA_VERIFICACION = "fechaVerificacion";
-    //public static final String LLAVE_JSON_CADENA_QR = "cadenaQR";
 
     public Timbre()
     {}
-
-    public Timbre(String json)
-    {
-        /*
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-
-            rfcEmisor = jsonObject.getString(LLAVE_JSON_EMISOR);
-            rfcReceptor = jsonObject.getString(LLAVE_JSON_RECEPTOR);
-            monto = jsonObject.getString(LLAVE_JSON_TOTAL);
-            mensaje = jsonObject.getString(LLAVE_JSON_ESTATUS);
-            uuid = jsonObject.getString(LLAVE_JSON_ID);
-            estado = jsonObject.getString(LLAVE_JSON_ESTADO);
-            rfcEmisor = jsonObject.getString(LLAVE_JSON_EMISOR);
-            fechaVerificacion = jsonObject.getString(LLAVE_JSON_FECHA_VERIFICACION);
-
-            if (estado.equals(VIGENTE))
-                estatus = VALIDO;
-            else
-                estatus = INVALIDO;
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        */
-    }
 
     public Timbre(int id, String uuid, String rfcReceptor, String rfcEmisor, String monto, int estatus, String mensaje, String fechaVerificacion, String estado, String cadenaQR)
     {
@@ -122,12 +72,12 @@ public class Timbre {
 
     public String getMontoString() {
 
-        String montoString = "";
+        String montoString = monto;
 
         try {
-            montoString = String.format("%,.2f", Double.parseDouble(monto));
+            montoString = String.format("%1$,.2f", Double.parseDouble(monto));
         }
-        catch (NumberFormatException e)
+        catch (NumberFormatException ignored)
         {}
 
         return montoString;

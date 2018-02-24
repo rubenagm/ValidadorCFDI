@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -70,6 +72,7 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.dialogo_leyendo_factura, null);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         inicializarObjetos();
         inicializarEventos();
@@ -196,8 +199,8 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
     }
 
     public void compartirView() {
-        (view.findViewById(R.id.dialogo_leyendo_factura_mensaje_compartir)).setVisibility(View.VISIBLE);
         (view.findViewById(R.id.layout_vigente_linear_botones_compartir)).setVisibility(View.GONE);
+        (view.findViewById(R.id.dialogo_leyendo_factura_mensaje_compartir)).setVisibility(View.VISIBLE);
 
         Compartir.compartirView(mainActivity,
                 view.findViewById(R.id.dialogo_leyendo_factura_principal));

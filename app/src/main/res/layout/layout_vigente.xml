@@ -22,7 +22,7 @@ android:layout_height="wrap_content">
             android:alpha=".87"
             android:textColor="@color/colorBlack"
             android:fontFamily="sans-serif-light"
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:layout_gravity="center_vertical"
             android:text="Vigente"
             android:layout_width="wrap_content"
@@ -222,8 +222,8 @@ android:layout_height="wrap_content">
             <ImageView
                 android:layout_gravity="center"
                 android:src="@mipmap/icono_actualizar"
-                android:layout_width="30dp"
-                android:layout_height="30dp" />
+                android:layout_width="34dp"
+                android:layout_height="34dp" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/layout_vigente_layout_compartir"

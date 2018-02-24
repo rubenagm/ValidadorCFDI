@@ -65,9 +65,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <TextView
+                            android:alpha=".9"
                             android:fontFamily="sans-serif-light"
                             android:textSize="13sp"
-                            android:textColor="@color/colorCafe"
+                            android:textColor="@color/colorBlack"
                             android:text="Emisor:"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -84,9 +85,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <TextView
+                            android:alpha=".9"
                             android:fontFamily="sans-serif-light"
                             android:textSize="13sp"
-                            android:textColor="@color/colorCafe"
+                            android:textColor="@color/colorBlack"
                             android:text="Receptor:"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -103,10 +105,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:alpha=".9"
                         android:fontFamily="sans-serif-light"
                         android:textSize="13sp"
                         android:layout_marginTop="1dp"
-                        android:textColor="@color/colorCafe"
+                        android:textColor="@color/colorBlack"
                         android:gravity="center"
                         android:layout_gravity="center"
                         android:text="Monto"
