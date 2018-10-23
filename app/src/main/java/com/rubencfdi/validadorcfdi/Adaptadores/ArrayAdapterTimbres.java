@@ -48,14 +48,22 @@ public class ArrayAdapterTimbres extends ArrayAdapter<Timbre> {
     }
 
     private void generarItem(final int position) {
-        ((TextView) view.findViewById(R.id.item_timbre_text_rfc_emisor)).setText(getItem(position).getRfcEmisor());
-        ((TextView) view.findViewById(R.id.item_timbre_text_rfc_receptor)).setText(getItem(position).getRfcReceptor());
-        ((TextView) view.findViewById(R.id.item_timbre_text_monto)).setText("$" + getItem(position).getMontoString());
 
-        if (getItem(position).getEstatus() == 1) {
+        final Timbre timbre = getItem(position);
+
+        ((TextView) view.findViewById(R.id.item_timbre_text_rfc_emisor)).setText(timbre.getRfcEmisor());
+        ((TextView) view.findViewById(R.id.item_timbre_text_rfc_receptor)).setText(timbre.getRfcReceptor());
+        ((TextView) view.findViewById(R.id.item_timbre_text_monto)).setText("$ " + timbre.getMontoString());
+
+        if (timbre.getEstatus() == Timbre.VALIDO) {
             ((TextView) view.findViewById(R.id.item_timbre_text_valido)).setText("Vigente");
             ((ImageView) view.findViewById(R.id.item_timbre_icono_valido)).setImageResource(R.mipmap.icono_valido);
             view.findViewById(R.id.item_timbre_text_linea_valido).setBackgroundResource(R.color.colorValido);
+        }
+        else if (timbre.getEstatus() == Timbre.CANCELADO){
+                ((TextView) view.findViewById(R.id.item_timbre_text_valido)).setText("Cancelado");
+                ((ImageView) view.findViewById(R.id.item_timbre_icono_valido)).setImageResource(R.mipmap.ic_cancel);
+                view.findViewById(R.id.item_timbre_text_linea_valido).setBackgroundResource(R.color.colorCancelado);
         }
         else {
             ((TextView) view.findViewById(R.id.item_timbre_text_valido)).setText("Inválido");
@@ -68,7 +76,7 @@ public class ArrayAdapterTimbres extends ArrayAdapter<Timbre> {
             public void onClick(View v) {
                 DialogoLeyendoFactura dialogoLeyendoFactura = new DialogoLeyendoFactura();
                 dialogoLeyendoFactura.setMainActivity(mainActivity);
-                dialogoLeyendoFactura.setTimbre(getItem(position));
+                dialogoLeyendoFactura.setTimbre(timbre);
                 FragmentTransaction transaction = mainActivity.getSupportFragmentManager().beginTransaction();
                 transaction.add(dialogoLeyendoFactura, "dialogo_leyendo_factura");
                 transaction.commitAllowingStateLoss();

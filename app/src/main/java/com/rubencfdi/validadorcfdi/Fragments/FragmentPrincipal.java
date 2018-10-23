@@ -45,9 +45,14 @@ public class FragmentPrincipal extends Fragment {
     private TextView textViewInvalidos;
     private ArrayList<Timbre> timbres;
     private ImageView imageViewCamara;
+    private ImageView imageViewInfo;
     private ListView listViewTimbres;
     private ViewPager viewPager;
     private RelativeLayout relativeLayoutSinTimbres;
+
+    private LinearLayout linearLayoutQrLeidos;
+    private LinearLayout linearLayoutQrValidos;
+    private LinearLayout linearLayoutQrInvalidos;
 
     public static final int ACTIVITY_CAMARA = 28747;
 
@@ -91,15 +96,6 @@ public class FragmentPrincipal extends Fragment {
         }
     }
 
-    private void agregarClickLayout(LinearLayout linearLayoutItem) {
-        linearLayoutItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-    }
-
     private void inicializarEventos() {
         imageViewCamara.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +105,32 @@ public class FragmentPrincipal extends Fragment {
                 } else {
                     mainActivity.requestPermissionCamera();
                 }
+            }
+        });
+
+        imageViewInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewPager.setCurrentItem(1);
+            }
+        });
+
+        linearLayoutQrLeidos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mainActivity, "QR's leídos", Toast.LENGTH_SHORT).show();
+            }
+        });
+        linearLayoutQrValidos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mainActivity, "QR's leídos (Válidos)", Toast.LENGTH_SHORT).show();
+            }
+        });
+        linearLayoutQrInvalidos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mainActivity, "QR's leídos (Inválidos o cancelados)", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -124,8 +146,12 @@ public class FragmentPrincipal extends Fragment {
         textViewValidos = (TextView) view.findViewById(R.id.fragment_principal_text_validos);
         textViewInvalidos = (TextView) view.findViewById(R.id.fragment_principal_text_invalidos);
         imageViewCamara = (ImageView) view.findViewById(R.id.fragment_principal_boton_camara);
+        imageViewInfo = (ImageView) view.findViewById(R.id.fragment_principal_image_boton_info);
         relativeLayoutSinTimbres = (RelativeLayout) view.findViewById(R.id.fragment_principal_relative_sin_timbres);
         listViewTimbres = (ListView) view.findViewById(R.id.fragment_principal_list_elementos);
+        linearLayoutQrLeidos = (LinearLayout) view.findViewById(R.id.fragment_principal_layout_qr_leidos);
+        linearLayoutQrValidos = (LinearLayout) view.findViewById(R.id.fragment_principal_layout_qr_validos);
+        linearLayoutQrInvalidos = (LinearLayout) view.findViewById(R.id.fragment_principal_layout_qr_invalidos);
     }
 
     public FragmentPrincipal setActivity(MainActivity mainActivity) {

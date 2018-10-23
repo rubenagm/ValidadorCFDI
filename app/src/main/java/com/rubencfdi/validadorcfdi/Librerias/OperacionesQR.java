@@ -6,11 +6,13 @@ package com.rubencfdi.validadorcfdi.Librerias;
 
 public class OperacionesQR {
 
-    public static boolean validarFacturaQR(String qr) {
+    public static int validarFacturaQR(String qr) {
 
         if (qr.matches(".*re=[A-Z a-z 0-9]+&rr=.+&tt=[0-9 .]+&id=.+"))
-            return true;
+            return 1;
+        if(qr.contains("https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?"))
+            return 2;
 
-        return false;
+        return 0;
     }
 }

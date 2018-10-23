@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.rubencfdi.validadorcfdi.Activitys.MainActivity;
 import com.rubencfdi.validadorcfdi.BaseDatos.BaseDatos;
@@ -27,6 +28,7 @@ import com.rubencfdi.validadorcfdi.Conexion.Peticion;
 import com.rubencfdi.validadorcfdi.Librerias.Compartir;
 import com.rubencfdi.validadorcfdi.Librerias.Conexion;
 import com.rubencfdi.validadorcfdi.Librerias.Fecha;
+import com.rubencfdi.validadorcfdi.Librerias.OperacionesQR;
 import com.rubencfdi.validadorcfdi.Modelos.Timbre;
 import com.rubencfdi.validadorcfdi.R;
 
@@ -68,6 +70,8 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
     private LinearLayout linearLayoutCompartir;
     private LinearLayout linearLayoutBorrar;
 
+    private RelativeLayout relativeLayoutVerificarSAT;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.dialogo_leyendo_factura, null);
@@ -98,16 +102,33 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
         if (timbre != null) {
             textViewEmisor.setText(timbre.getRfcEmisor());
             textViewReceptor.setText(timbre.getRfcReceptor());
-            textViewTotal.setText("$" + timbre.getMontoString());
+            textViewTotal.setText("$ " + timbre.getMontoString());
             textViewId.setText(timbre.getUuid());
             textViewEstado.setText(timbre.getEstado());
             textViewEstatus.setText(timbre.getMensaje());
             textViewFechaVerificacion.setText(Fecha.fechaDiaSemana(timbre.getFechaVerificacion()));
 
-            if (timbre.getEstatus() == Timbre.INVALIDO) {
-                textViewTextoValido.setText("Inválido");
-                imageViewIconoValido.setImageResource(R.mipmap.icono_invalido);
+            switch (timbre.getEstatus()) {
+                case Timbre.VALIDO : {
+                    textViewTextoValido.setText("Vigente");
+                    imageViewIconoValido.setImageResource(R.mipmap.icono_valido);
+                    break;
+                }
+                case Timbre.INVALIDO : {
+                    textViewTextoValido.setText("Inválido");
+                    imageViewIconoValido.setImageResource(R.mipmap.icono_invalido);
+                    break;
+                }
+                case Timbre.CANCELADO : {
+                    textViewTextoValido.setText("Cancelado");
+                    imageViewIconoValido.setImageResource(R.mipmap.ic_cancel);
+                    break;
+                }
             }
+
+            if (OperacionesQR.validarFacturaQR(timbre.getCadenaQR()) == 2)
+                relativeLayoutVerificarSAT.setVisibility(View.VISIBLE);
+
         }
     }
 
@@ -196,6 +217,15 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
 
             }
         });
+
+        relativeLayoutVerificarSAT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse(timbre.getCadenaQR());
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
     }
 
     public void compartirView() {
@@ -231,6 +261,7 @@ public class DialogoLeyendoFactura extends DialogFragment implements Peticion.Va
         linearLayoutCompartir = (LinearLayout) view.findViewById(R.id.layout_vigente_layout_compartir);
         imageViewIconoValido = (ImageView) view.findViewById(R.id.layout_vigente_icono_vigente);
         textViewTextoValido = (TextView) view.findViewById(R.id.layout_vigente_texto_vigente);
+        relativeLayoutVerificarSAT = (RelativeLayout) view.findViewById(R.id.layout_vigente_relative_layout_verificar_pagina);
     }
 
     public void setCadenaQR(String cadenaQR) {

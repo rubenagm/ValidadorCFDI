@@ -23,6 +23,7 @@ public class Timbre {
 
     public static final int VALIDO = 1;
     public static final int INVALIDO = 2;
+    public static final int CANCELADO = 3;
 
     public Timbre()
     {}

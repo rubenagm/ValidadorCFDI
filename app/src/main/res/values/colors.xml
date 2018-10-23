@@ -18,4 +18,5 @@
     <!--Colores válido e inválido-->
     <color name="colorValido">#67BB25</color>
     <color name="colorInvalido">#C4000C</color>
+    <color name="colorCancelado">#ff5722</color>
 </resources>

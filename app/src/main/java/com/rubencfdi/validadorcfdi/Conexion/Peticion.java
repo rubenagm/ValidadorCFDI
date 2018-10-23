@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.NetworkOnMainThreadException;
 
 import com.rubencfdi.validadorcfdi.Librerias.Fecha;
+import com.rubencfdi.validadorcfdi.Librerias.OperacionesQR;
 import com.rubencfdi.validadorcfdi.Modelos.Timbre;
 
 import org.json.JSONException;
@@ -49,7 +50,7 @@ public class Peticion {
         private String qr;
         private ValidacionFactura validacionFactura;
 
-        public RequestAsyncTask(String qr, ValidacionFactura validacionFactura) {
+        private RequestAsyncTask(String qr, ValidacionFactura validacionFactura) {
             this.qr = qr;
             this.validacionFactura = validacionFactura;
         }
@@ -84,25 +85,42 @@ public class Peticion {
             super.onPostExecute(result);
             result = result.replace("ConsultaResponse{ConsultaResult=anyType{", "").replace("; }; }", "");
 
-            String[] list = qr.split("&");
+            String[] list = null;
 
             Timbre timbre = new Timbre();
             timbre.setCadenaQR(qr);
-            timbre.setRfcEmisor(list[0].replace("re=", "").replace("?", ""));
-            timbre.setRfcReceptor(list[1].replace("rr=", "").replace("?", ""));
-            timbre.setMonto(list[2].replace("tt=", ""));
-            timbre.setMensaje(result);
-            timbre.setUuid(list[3].replace("id=", ""));
-            timbre.setFechaVerificacion( new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
-            if (result.contains("Estado=Vigente")) {
-                timbre.setEstatus(1);
+            if (OperacionesQR.validarFacturaQR(qr) == 1) {
+                list = qr.split("&");
+                timbre.setRfcEmisor(list[0].replace("re=", "").replace("?", ""));
+                timbre.setRfcReceptor(list[1].replace("rr=", "").replace("?", ""));
+                timbre.setMonto(list[2].replace("tt=", ""));
+                timbre.setMensaje(result);
+                timbre.setUuid(list[3].replace("id=", ""));
+                timbre.setFechaVerificacion( new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+            } else {
+                list = qr.replace("https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?", "").split("&");
+                timbre.setUuid(list[0].replace("id=", ""));
+                timbre.setRfcEmisor(list[1].replace("re=", "").replace("?", ""));
+                timbre.setRfcReceptor(list[2].replace("rr=", "").replace("?", ""));
+                timbre.setMonto(list[3].replace("tt=", ""));
+                timbre.setMensaje(result);
+                timbre.setFechaVerificacion( new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+            }
+
+            if (result.toUpperCase().contains("ESTADO=VIGENTE")) {
+                timbre.setEstatus(Timbre.VALIDO);
                 timbre.setEstado("Vigente");
                 validacionFactura.facturaValida(timbre);
             }
-            else {
-                timbre.setEstatus(2);
-                timbre.setEstado("Invalido");
+            else if(result.toUpperCase().contains("ESTADO=CANCELADO")) {
+                timbre.setEstatus(Timbre.CANCELADO);
+                timbre.setEstado("Cancelado");
+                validacionFactura.facturaInvalida(timbre);
+            }
+            else  {
+                timbre.setEstatus(Timbre.INVALIDO);
+                timbre.setEstado("Inválido");
                 validacionFactura.facturaInvalida(timbre);
             }
         }

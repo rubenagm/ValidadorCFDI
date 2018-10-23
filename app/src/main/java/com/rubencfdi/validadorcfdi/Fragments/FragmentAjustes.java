@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.rubencfdi.validadorcfdi.Activitys.MainActivity;
 import com.rubencfdi.validadorcfdi.BaseDatos.BaseDatos;
@@ -62,6 +63,8 @@ public class FragmentAjustes extends Fragment {
                                         }
 
                                         mainActivity.refrescarLista();
+                                        Toast.makeText(mainActivity, "Se han borrado todos los timbres consultados", Toast.LENGTH_SHORT).show();
+                                        viewPager.setCurrentItem(0);
                                     }
                                 })
                         .setNegativeButton("CANCELAR",

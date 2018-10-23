@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">ValidadorCFDI</string>
+    <string name="textoAppEncabezado">Valida los CFDI de las facturas, regresando su estatus.</string>
+    <string name="textoApp">La aplicación utiliza la URL proporsionada por el SAT de manera gratuita(<u>https://consultaqr.facturaelectronica.sat.gob.mx/ConsultaCFDIService.svc?singleWsdl</u>), no es responsabilidad de la aplicación ni de el desarrollador cualquier inconveniente ocasionado por la información proporcionada, así mismo tanto la aplicación como el desarrollador se deslindan de cualquier responsabilidad sobre los estatus, consultas o resultados que se den dentro de la aplicación.\n\nNo se asegura el correcto funcionamiento si el servidor del SAT no llega a funcionar de la manera correcta.
+    </string>
 </resources>

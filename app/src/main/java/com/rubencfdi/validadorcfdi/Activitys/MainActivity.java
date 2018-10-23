@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private SliderAdapterMain sliderAdapterMain;
     public static final int ID_PERMISSION_CAMERA = 7637;
     public static final int ID_PERMISSION_WRITE_EXTERNAL_STORAGE = 7492;
-    public ConexionEntreFunciones conexionEntreFunciones;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,14 +101,13 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case ID_PERMISSION_CAMERA: {
-                // If request is cancelled, the result arrays are empty.
+
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                     sliderAdapterMain.inicializarCamaraActivity();
 
                 } else {
-
                     final AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("PERMISO CÁMARA")
                             .setMessage("Debes conceder el permiso a la cámara para poder leer los códigos QR")
@@ -120,10 +118,8 @@ public class MainActivity extends AppCompatActivity {
             }
             case ID_PERMISSION_WRITE_EXTERNAL_STORAGE : {
 
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-
+                if ((grantResults.length > 0)
+                        && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 } else {
 
                     final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -132,13 +128,9 @@ public class MainActivity extends AppCompatActivity {
                             .create()
                             .show();
                 }
+
+                break;
             }
         }
-    }
-
-
-
-    public interface ConexionEntreFunciones {
-        public void ejecucion();
     }
 }

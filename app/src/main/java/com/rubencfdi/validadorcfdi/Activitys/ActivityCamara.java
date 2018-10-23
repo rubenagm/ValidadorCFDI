@@ -94,8 +94,7 @@ public class ActivityCamara extends AppCompatActivity implements SurfaceHolder.C
 
         if (barcodeSparseArray.size() > 0) {
             String codigoQr = barcodeSparseArray.valueAt(0).displayValue;
-
-            if (OperacionesQR.validarFacturaQR(codigoQr)) {
+            if (OperacionesQR.validarFacturaQR(codigoQr) > 0) {
                 Intent intent = new Intent();
                 intent.putExtra(CODIGO_ENVIAR_QR, codigoQr);
                 setResult(Activity.RESULT_OK, intent);
