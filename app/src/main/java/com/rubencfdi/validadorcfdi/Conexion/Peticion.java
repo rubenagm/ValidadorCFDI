@@ -6,6 +6,7 @@ import android.os.NetworkOnMainThreadException;
 
 import com.rubencfdi.validadorcfdi.Librerias.Fecha;
 import com.rubencfdi.validadorcfdi.Librerias.OperacionesQR;
+import com.rubencfdi.validadorcfdi.Modelos.Constantes;
 import com.rubencfdi.validadorcfdi.Modelos.Timbre;
 
 import org.json.JSONException;
@@ -83,30 +84,38 @@ public class Peticion {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            result = result.replace("ConsultaResponse{ConsultaResult=anyType{", "").replace("; }; }", "");
 
             String[] list = null;
-
             Timbre timbre = new Timbre();
-            timbre.setCadenaQR(qr);
 
-            if (OperacionesQR.validarFacturaQR(qr) == 1) {
-                list = qr.split("&");
-                timbre.setRfcEmisor(list[0].replace("re=", "").replace("?", ""));
-                timbre.setRfcReceptor(list[1].replace("rr=", "").replace("?", ""));
-                timbre.setMonto(list[2].replace("tt=", ""));
-                timbre.setMensaje(result);
-                timbre.setUuid(list[3].replace("id=", ""));
-                timbre.setFechaVerificacion( new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-            } else {
+            result = result.replace("ConsultaResponse{ConsultaResult=anyType{", "").replace("; }; }", "");
+
+            if (OperacionesQR.validarFacturaQR(qr) == Constantes.FACTURA_CFDI_3_3) {
                 list = qr.replace("https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?", "").split("&");
-                timbre.setUuid(list[0].replace("id=", ""));
-                timbre.setRfcEmisor(list[1].replace("re=", "").replace("?", ""));
-                timbre.setRfcReceptor(list[2].replace("rr=", "").replace("?", ""));
-                timbre.setMonto(list[3].replace("tt=", ""));
-                timbre.setMensaje(result);
-                timbre.setFechaVerificacion( new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
             }
+
+            list = qr.split("&");
+            String[] SATkeys = new String[]{"id=" , "re=", "rr=","tt="};
+
+            for (String element:
+                 list) {
+                if (element.contains(SATkeys[0])) {
+                    timbre.setUuid(element.replace(SATkeys[0], ""));
+                }
+                else if(element.contains(SATkeys[1])){
+                    timbre.setRfcEmisor(element.replace(SATkeys[1], ""));
+                }
+                else if(element.contains(SATkeys[2])) {
+                    timbre.setRfcReceptor(element.replace(SATkeys[2], ""));
+                }
+                else if(element.contains(SATkeys[3])) {
+                    timbre.setMonto(element.replace(SATkeys[3], ""));
+                }
+            }
+
+            timbre.setCadenaQR(qr);
+            timbre.setMensaje(result);
+            timbre.setFechaVerificacion( new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
             if (result.toUpperCase().contains("ESTADO=VIGENTE")) {
                 timbre.setEstatus(Timbre.VALIDO);
